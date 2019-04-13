@@ -1,14 +1,12 @@
 ### Proto Buffer
 
-Proto Buffer is a C++ application that allows document sharing.
+Document share application written in C++
 
 #### Setup
 
 - Docker
 
-Install the [Docker](https://docs.docker.com/install/) and [Docker Compose](https://docs.docker.com/compose/install/) tools, following the official documentation.
-
-- Mongo
+Install the [Docker](https://docs.docker.com/install/) and [Docker Compose](https://docs.docker.com/compose/install/) tools, following the official documentation
 
 Clone and open this repository:
 
@@ -20,32 +18,63 @@ git clone https://github.com/Sphinxs/Proto-buffer
 cd Proto-buffer
 ```
 
-Create a container (*mongo-database*) based on [Mongo](https://hub.docker.com/_/mongo) image:
+Create all containers:
 
 ```sh
 docker-compose up
 ```
 
-Start the container:
+List all containers:
 
 ```sh
-docker start mongo-database
+docker ps -a
 ```
 
-Inspect the container' configuration:
+Available containers:
+
+| name    | description    |
+| ------- | -------------- |
+| mongo-c | mongo database |
+
+
+Start a container (change the container name):
 
 ```sh
-docker inspect mongo-database
+docker start name
 ```
 
-Get the container' logs:
+Inspect a container (change the container name):
 
 ```sh
-docker logs mongo-database
+docker inspect name 
 ```
 
-Execute a command inside the container:
+Get logs from a container (change the container name):
 
 ```sh
-docker exec -it mongo-database bash
+docker logs -f name
+```
+
+- Compiler
+
+```sh
+apt install build-essential gcc g++ # clang
+```
+
+- CMake
+
+Intall the CMake:
+
+```sh
+apt install cmake
+```
+
+Open this repository and compile the code on [build](./build) folder:
+
+```sh
+cd Proto-buffer
+```
+
+```sh
+cmake -B./build -H. # target folder / source code
 ```

@@ -1,15 +1,8 @@
 version: '3'
 
 services:
-  mongo-service:
-    container_name: mongo-database
+  mongo-s: # Service
+    container_name: mongo-c # Container
     image: mongo
     ports: 
       - '27017:27017'
-    volumes:
-      - data:/data/db
-
-
-volumes:
-  data:
-    driver: local
