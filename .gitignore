@@ -4,7 +4,10 @@
 # executables
 *.exe
 *.out
+*.so
 
 # compiler
 build/*
-build/!.gitkeep
+
+# folders
+!.gitkeep
