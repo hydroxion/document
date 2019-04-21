@@ -14,14 +14,17 @@
 
 #include <mongocxx/instance.hpp>
 
-int main(const int argc, const char *argv[]) {
-    mongocxx::instance instance{};
+class Connection
+{
+    private: 
+        static mongocxx::instance instance{};
 
-    mongocxx::uri uri("mongodb://0.0.0.0:27017");
-    
-    mongocxx::client client(uri);
+        mongocxx::client client{mongocxx::uri("mongodb://0.0.0.0:27017")};
+};
 
-    mongocxx::database db = client["admin"];
+int main(const int argc, const char *argv[])
+{
+    Connection connection;
 
     return 0;
 }
