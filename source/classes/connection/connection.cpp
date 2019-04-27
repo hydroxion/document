@@ -1,116 +1,40 @@
-#include <iostream>
+#include "connection.hpp"
 
-#include <bsoncxx/json.hpp>
+#ifndef CONNECTION_INSTANCE
 
-#include <mongocxx/stdx.hpp>
-
-#include <mongocxx/client.hpp>
-
-#include <mongocxx/uri.hpp>
-
-#include <mongocxx/instance.hpp>
+#define CONNECTION_INSTANCE
 
 ///
-/// Only one instance must exist for the entirety of the program.
+/// Only one instance must exist for the entirety of the program
 ///
-/// Don't use static or nest the instance, because it can cause
-/// segmentation fault
+/// Don't use static, nest the instance in a class or place the
+/// instance in the HPP file, it can cause segmentation fault
 ///
 mongocxx::instance instance;
 
-class Connection
+#endif // CONNECTION_INSTANCE
+
+Connection::Connection()
 {
-private:
-	std::string mongo_uri{"mongodb://127.0.0.1:27017"};
+}
 
-	mongocxx::client client{mongocxx::uri{this->mongo_uri}};
-
-public:
-	///
-	/// Constructs a default connection to Mongo
-	///
-	/// http://mongocxx.org/api/mongocxx-3.3.0/classmongocxx_1_1client.html
-	///
-	Connection()
-	{
-	}
-
-	///
-	/// Constructs a personalized connection to Mongo
-	///
-	/// @param mongodb_uri
-	///   A Mongo URI representing the connection parameters
-	///
-	/// Additional options can be specified via options parameter
-	///
-	/// http://mongocxx.org/api/mongocxx-3.3.0/classmongocxx_1_1client.html
-	///
-	Connection(const std::string &mongodb_uri)
-	{
-		this->mongo_uri = mongo_uri;
-
-		this->client = mongocxx::client{mongocxx::uri{mongodb_uri}};
-	}
-
-	///
-	/// Destroys a connection
-	///
-	~Connection()
-	{
-	}
-
-	///
-	/// Get a database
-	///
-	/// @param database_name
-	///   A database name representing a valid Mongo database
-	///
-	/// A database cannot be obtained from a temporary client object
-	///
-	/// http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1database.html
-	///
-	/// https://stackoverflow.com/questions/10897799/temporary-objects-when-are-they-created-how-do-you-recognise-them-in-code
-	///
-	const mongocxx::database get_database(const std::string &database_name) const
-	{
-		return this->client[database_name];
-	}
-
-	///
-	/// Get a collection
-	///
-	/// @param database_name
-	///   A database name representing a valid Mongo database
-	///
-	/// @param collection_name
-	///   A collection name representing a valid Mongo collection
-	///
-	/// http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1collection.html
-	///
-	const mongocxx::collection get_collection(const std::string &database_name, const std::string &collection_name) const
-	{
-		return this->get_database(database_name)[collection_name];
-	}
-};
-
-int main(const int argc, const char *argv[])
+Connection::Connection(const std::string &mongodb_uri)
 {
-	// Create a connection
-	Connection connection;
+	this->mongo_uri = mongo_uri;
 
-	// Get a database
-	connection.get_database("proto-buffer");
+	this->client = mongocxx::client{mongocxx::uri{mongodb_uri}};
+}
 
-	// Get a collection from database
-	mongocxx::collection collection = connection.get_collection("proto-buffer", "users");
+Connection::~Connection()
+{
+}
 
-	// Get documents from collection
-	mongocxx::cursor cursor = collection.find({});
+const mongocxx::database Connection::get_database(const std::string &database_name) const
+{
+	return this->client[database_name];
+}
 
-	for (auto document : cursor)
-	{
-		std::cout << bsoncxx::to_json(document) << "\n";
-	}
-
-	return 0;
+const mongocxx::collection Connection::get_collection(const std::string &database_name, const std::string &collection_name) const
+{
+	return this->get_database(database_name)[collection_name];
 }

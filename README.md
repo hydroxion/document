@@ -4,7 +4,7 @@
 
 ---
 
-Document share application written in C++.
+Document share application written in C++
 
 #### Setup
 
@@ -36,7 +36,7 @@ Available containers:
 
 - Compiler
 
-GCC and G++ are used to compile this application and CMake its used to compile the libraries. Pkg it's a dependency to generate the includes and libraries on [Makefile](./Makefile).
+Install GCC, G++, cmake and PKG via package manager:
 
 ```sh
 apt install build-essential pkg-config gcc g++ cmake
@@ -44,9 +44,9 @@ apt install build-essential pkg-config gcc g++ cmake
 
 - Mongo driver
 
-The Mongo CXX its the Mongo driver for C++. The Mongo CXX driver builds on top of the Mongo C driver. See all [drivers](https://docs.mongodb.com/ecosystem/drivers/).
+The Mongo CXX its the Mongo driver for C++. The Mongo CXX driver builds on top of the Mongo C driver, the Mongo driver for C language. See all available [drivers](https://docs.mongodb.com/ecosystem/drivers/) and its versions.
 
-> If incompatible versions of Mongo C (and its dependencies) and Mongo CXX are installed, it can cause conflicts on the compilation of Mongo CXX. Find the compatible versions [here](http://mongocxx.org/mongocxx-v3/installation/)
+> If incompatible versions of Mongo C (and its dependencies) and Mongo CXX are installed, it can cause conflicts in the Mongo CXX compilation. The Mongo C version used here its the 1.13.0 and the Mongo CXX version used here its the 3.3.0
 
 1. Install the Mongo C driver
 
@@ -70,7 +70,7 @@ mkdir ./mongo-c-driver-1.13.0/cmake-build
 cd ./mongo-c-driver-1.13.0/cmake-build
 ```
 
-Install the dependencies (OpenSSL is required for authentication or for SSL connections to MongoDB and Kerberos or LDAP support requires Cyrus SASL):
+Install the dependencies (OpenSSL is required for authentication or for SSL connections to Mongo and Kerberos or LDAP support requires Cyrus SASL):
 
 ```sh
 apt install libssl-dev libsasl2-dev
@@ -118,7 +118,7 @@ cd mongo-cxx-driver-r3.3.0/build
 
 Configure the driver:
 
-On Unix systems, `libmongoc` installs into */usr/local* by default. The source code its on */usr/local/include* and the libraries are on */usr/local/lib*. To configure `mongocxx` for installation into */usr/local* as well, use the following CMake command:
+To configure `mongocxx` for installation into */usr/local* as well, use the following two CMake commands:
 
 ```sh
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local ..
@@ -133,3 +133,7 @@ Compile and install the driver:
 ```sh
 sudo make && sudo make install
 ```
+
+3. Mongo C and Mongo CXX
+
+The code of both libraries can be found on */usr/local/include* and the shared libraries on */usr/local/lib*.

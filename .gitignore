@@ -1,13 +1,24 @@
 # editor
 .vscode
+.vs
 
 # executables
 *.exe
 *.out
+*.bin
+
+# libraries
 *.so
+*.a
+*.lib
+*.dll
+*.dylib
 
-# compiler
-build/*
-
-# folders
+# empty folders
 !.gitkeep
+
+# linux trash folder
+.Trash-*
+
+# temporary files
+.nfs*
