@@ -2,18 +2,21 @@
 
 #define CONNECTION
 
-/// Mongo client (include database and collection)
+/// Mongo client
 #include <mongocxx/client.hpp>
 
-/// Mongo URI (include client)
+/// Mongo URI
 #include <mongocxx/uri.hpp>
 
-/// Mongo instance (include logger)
+/// Mongo instance
 #include <mongocxx/instance.hpp>
 
 class Connection
 {
 private:
+	///
+	/// https://docs.mongodb.com/manual/reference/connection-string/
+	///
 	std::string mongo_uri{"mongodb://127.0.0.1:27017"};
 
 	///
@@ -23,7 +26,7 @@ private:
 	///
 	mongocxx::client client{mongocxx::uri{this->mongo_uri}};
 
-public:
+protected:
 	///
 	/// Constructs a default connection to Mongo
 	///

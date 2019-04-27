@@ -7,8 +7,8 @@
 ///
 /// Only one instance must exist for the entirety of the program
 ///
-/// Don't use static or nest the instance in a class, it can cause
-/// segmentation fault
+/// Don't use static, nest the instance in a class or place the
+/// instance in the HPP file, it can cause segmentation fault
 ///
 mongocxx::instance instance;
 

@@ -1,10 +1,10 @@
 /// Default I/O
 #include <iostream>
 
-/// JSON (include view, value and optional)
+/// JSON
 #include <bsoncxx/json.hpp>
 
 #include <mongocxx/stdx.hpp>
 
-/// Connection to Mongo
+/// Mongo connection
 #include "classes/connection/connection.hpp"
