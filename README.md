@@ -1,6 +1,7 @@
 ### Proto Buffer
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8293993c1ae54528aadacc58352d6cb7)](https://app.codacy.com/app/Sphinxs/Proto-buffer?utm_source=github.com&utm_medium=referral&utm_content=Sphinxs/Proto-buffer&utm_campaign=Badge_Grade_Dashboard) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)  ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/sphinxs/proto-buffer/dev.svg) [![Maintainability](https://api.codeclimate.com/v1/badges/810a45adf67f8137c712/maintainability)](https://codeclimate.com/github/Sphinxs/Proto-buffer/maintainability)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8293993c1ae54528aadacc58352d6cb7)](https://app.codacy.com/app/Sphinxs/Proto-buffer?utm_source=github.com&utm_medium=referral&utm_content=Sphinxs/Proto-buffer&utm_campaign=Badge_Grade_Dashboard) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)  ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/sphinxs/proto-buffer/dev.svg) [![Maintainability](https://api.codeclimate.com/v1/badges/810a45adf67f8137c712/maintainability)](https://codeclimate.com/github/Sphinxs/Proto-buffer/maintainability) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v1.4%20adopted-ff69b4.svg)](code-of-conduct.md)
+
 
 ---
 
@@ -140,29 +141,8 @@ The code of both libraries can be found on */usr/local/include* and the shared l
 
 #### License
 
-The Proto Buffer license was created based on [MIT](https://choosealicense.com/licenses/mit/) license and on [Creative Commons 4.0](https://tldrlegal.com/license/creative-commons-attribution-noderivatives-4.0-international-(cc-by-nd-4.0)).
+The [Proto Buffer](LICENSE) license was created based on [MIT](https://choosealicense.com/licenses/mit/) license and on [Creative Commons 4.0](https://tldrlegal.com/license/creative-commons-attribution-noderivatives-4.0-international-(cc-by-nd-4.0)).
 
 #### To Do
 
-|                               Title
-|   -------------------------------------------------------------   |
-|   Create a board on Asana                                         |
-|   Create UML diagrams                                             |
-|   Create the user class                                           |
-|   Create the document class                                       |
-|   Create the archive class                                        |
-|   Create a Docker image to the C++ code                           |
-|   Document the development guide line                             |
-|   Document how to contribute                                      |
-|   Create tests to the code                                        |
-|   Integrate the Circle CI to the repository                       |
-|   Create the metric class                                         |
-|   Create the comment class                                        |
-|   Create a interface to desktop in C++                            |
-|   Create a scrapper in Python to get documents to the platform    |
-|   Apply a file compress algorithm to the documents                |
-|   Change the Mongo to a P2P system                                |
-|   Create a interface in Python to expose a Graph API              |
-|   Create a front-end interface to the Graph API                   |
-|   Apply cryptography / VPN or Proxy to everything                 |
-|   Apply natural language process to process the documents         |
+See the [To Do](https://github.com/Sphinxs/Proto-buffer/projects/1) and the [contribute](https://github.com/Sphinxs/Proto-buffer/blob/master/CONTRIBUTING.md) guide line to contribute to the project.

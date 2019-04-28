@@ -22,3 +22,6 @@
 
 # temporary files
 .nfs*
+
+# github template
+!.github
