@@ -161,7 +161,6 @@ The Proto Buffer license was created based on [MIT](https://choosealicense.com/l
 |   Create a interface to desktop in C++                            |
 |   Create a scrapper in Python to get documents to the platform    |
 |   Apply a file compress algorithm to the documents                |
-|   Define the methods to monetize                                  |
 |   Change the Mongo to a P2P system                                |
 |   Create a interface in Python to expose a Graph API              |
 |   Create a front-end interface to the Graph API                   |
