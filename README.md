@@ -1,10 +1,10 @@
 ### Proto Buffer
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8293993c1ae54528aadacc58352d6cb7)](https://app.codacy.com/app/Sphinxs/Proto-buffer?utm_source=github.com&utm_medium=referral&utm_content=Sphinxs/Proto-buffer&utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8293993c1ae54528aadacc58352d6cb7)](https://app.codacy.com/app/Sphinxs/Proto-buffer?utm_source=github.com&utm_medium=referral&utm_content=Sphinxs/Proto-buffer&utm_campaign=Badge_Grade_Dashboard) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)  ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/sphinxs/proto-buffer/dev.svg) [![Maintainability](https://api.codeclimate.com/v1/badges/810a45adf67f8137c712/maintainability)](https://codeclimate.com/github/Sphinxs/Proto-buffer/maintainability)
 
 ---
 
-Document share application written in C++
+Document share application written in C++. See more details in the [presentation](documentation/presentation.pdf).
 
 #### Setup
 
@@ -161,7 +161,6 @@ The Proto Buffer license was created based on [MIT](https://choosealicense.com/l
 |   Create a interface to desktop in C++                            |
 |   Create a scrapper in Python to get documents to the platform    |
 |   Apply a file compress algorithm to the documents                |
-|   Define the methods to monetize                                  |
 |   Change the Mongo to a P2P system                                |
 |   Create a interface in Python to expose a Graph API              |
 |   Create a front-end interface to the Graph API                   |
