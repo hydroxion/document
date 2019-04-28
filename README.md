@@ -137,3 +137,33 @@ sudo make && sudo make install
 3. Mongo C and Mongo CXX
 
 The code of both libraries can be found on */usr/local/include* and the shared libraries on */usr/local/lib*.
+
+#### License
+
+The Proto Buffer license was created based on [MIT](https://choosealicense.com/licenses/mit/) license and on [Creative Commons 4.0](https://tldrlegal.com/license/creative-commons-attribution-noderivatives-4.0-international-(cc-by-nd-4.0)).
+
+#### To Do
+
+|                               Title
+|   -------------------------------------------------------------   |
+|   Create a board on Asana                                         |
+|   Create UML diagrams                                             |
+|   Create the user class                                           |
+|   Create the document class                                       |
+|   Create the archive class                                        |
+|   Create a Docker image to the C++ code                           |
+|   Document the development guide line                             |
+|   Document how to contribute                                      |
+|   Create tests to the code                                        |
+|   Integrate the Circle CI to the repository                       |
+|   Create the metric class                                         |
+|   Create the comment class                                        |
+|   Create a interface to desktop in C++                            |
+|   Create a scrapper in Python to get documents to the platform    |
+|   Apply a file compress algorithm to the documents                |
+|   Define the methods to monetize                                  |
+|   Change the Mongo to a P2P system                                |
+|   Create a interface in Python to expose a Graph API              |
+|   Create a front-end interface to the Graph API                   |
+|   Apply cryptography / VPN or Proxy to everything                 |
+|   Apply natural language process to process the documents         |
