@@ -20,7 +20,9 @@ private:
 	std::string mongo_uri{"mongodb://127.0.0.1:27017"};
 
 	///
-	/// Note that client is not thread-safe
+	/// Note that client is not thread-safe, for each thread its necessary to
+	/// give its own mongocxx::client. Don't create two or more clients derived
+	/// from the same mongocxx::client in one (e.g, std::mutex) thread.
 	///
 	/// https://mongodb.github.io/mongo-cxx-driver/mongocxx-v3/thread-safety/
 	///
