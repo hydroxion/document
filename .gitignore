@@ -25,3 +25,6 @@
 
 # github template
 !.github
+
+# markdown cache
+*.html
