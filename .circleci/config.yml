@@ -8,6 +8,25 @@ jobs:
     steps:
       - checkout
       
-      - run: ../install.sh
+      - run:
+        name: Mongo driver installation
+        command: ../install.sh
 
-      - run: make
+      - run:
+        name: Builde the project
+        command: make
+
+workflows:
+  version: 2
+
+  workflow:
+    jobs:
+      - shellcheck
+
+      - build-job:
+          requires:
+            - shellcheck
+
+          filters:
+            branches:
+              only: master
