@@ -9,12 +9,11 @@ jobs:
       - checkout
       
       - run:
-        name: Mongo driver installation
         command: ../install.sh
 
       - run:
-        name: Builde the project
         command: make
+        command: make run
 
 workflows:
   version: 2
