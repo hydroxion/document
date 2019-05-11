@@ -16,17 +16,17 @@ Install the [Docker](https://docs.docker.com/install/) and [Docker Compose](http
 Clone and open this repository:
 
 ```sh
-git clone https://github.com/Sphinxs/Proto-buffer
+$ git clone https://github.com/Sphinxs/Proto-buffer
 ```
 
 ```sh
-cd Proto-buffer
+$ cd Proto-buffer
 ```
 
 Create all containers:
 
 ```sh
-docker-compose up
+$ docker-compose up
 ```
 
 Available containers:
@@ -37,10 +37,10 @@ Available containers:
 
 - Compiler
 
-Install GCC, G++, cmake and PKG via package manager:
+Install GCC, G++, CMake and PKG via package manager:
 
 ```sh
-apt install build-essential pkg-config gcc g++ cmake
+$ apt install build-essential pkg-config gcc g++ cmake
 ```
 
 - Mongo driver
@@ -54,49 +54,49 @@ The Mongo CXX its the Mongo driver for C++. The Mongo CXX driver builds on top o
 Get the driver from [Github](https://github.com/mongodb/mongo-c-driver/releases):
 
 ```sh
-wget -c https://github.com/mongodb/mongo-c-driver/archive/1.13.0.zip
+$ wget -c https://github.com/mongodb/mongo-c-driver/archive/1.13.0.zip
 ```
 
 Unzip the driver, create the *cmake-build* required subfolder and open the the subfolder *cmake-build*:
 
 ```sh
-unzip 1.13.0.zip
+$ unzip 1.13.0.zip
 ```
 
 ```sh
-mkdir ./mongo-c-driver-1.13.0/cmake-build
+$ mkdir ./mongo-c-driver-1.13.0/cmake-build
 ```
 
 ```sh
-cd ./mongo-c-driver-1.13.0/cmake-build
+$ cd ./mongo-c-driver-1.13.0/cmake-build
 ```
 
 Install the dependencies (OpenSSL is required for authentication or for SSL connections to Mongo and Kerberos or LDAP support requires Cyrus SASL):
 
 ```sh
-apt install libssl-dev libsasl2-dev
+$ apt install libssl-dev libsasl2-dev
 ```
 
 Compile the driver:
 
 ```sh
-cmake -DENABLE_AUTOMATIC_INIT_AND_CLEANUP=OFF ..
+$ cmake -DENABLE_AUTOMATIC_INIT_AND_CLEANUP=OFF ..
 ```
 
 Install the compiled driver:
 
 ```sh
-make
+$ make
 ```
 
 ```sh
-sudo make install
+$ sudo make install
 ```
 
 To remove:
 
 ```sh
-sudo /usr/local/share/mongo-c-driver/uninstall.sh
+$ sudo /usr/local/share/mongo-c-driver/uninstall.sh
 ```
 
 2. Instal the Mongo CXX driver
@@ -104,17 +104,17 @@ sudo /usr/local/share/mongo-c-driver/uninstall.sh
 Get the driver from [Github](https://github.com/mongodb/mongo-cxx-driver/releases):
 
 ```sh
-wget -c https://github.com/mongodb/mongo-cxx-driver/archive/r3.3.0.zip
+$ wget -c https://github.com/mongodb/mongo-cxx-driver/archive/r3.3.0.zip
 ```
 
 Unzip the driver and open the build folder:
 
 ```sh
-unzip r3.3.0.zip
+$ unzip r3.3.0.zip
 ```
 
 ```sh
-cd mongo-cxx-driver-r3.3.0/build
+$ cd mongo-cxx-driver-r3.3.0/build
 ```
 
 Configure the driver:
@@ -122,17 +122,17 @@ Configure the driver:
 To configure `mongocxx` for installation into */usr/local* as well, use the following two CMake commands:
 
 ```sh
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local ..
+$ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local ..
 ```
 
 ```sh
-sudo make EP_mnmlstc_core
+$ sudo make EP_mnmlstc_core
 ```
 
 Compile and install the driver:
 
 ```sh
-sudo make && sudo make install
+$ sudo make && sudo make install
 ```
 
 3. Mongo C and Mongo CXX

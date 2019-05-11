@@ -1,0 +1,32 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: debian:stretch
+
+    steps:
+      - checkout
+      
+      - run:
+        name: Mongo driver installation
+        command: ../install.sh
+
+      - run:
+        name: Builde the project
+        command: make
+
+workflows:
+  version: 2
+
+  workflow:
+    jobs:
+      - shellcheck
+
+      - build-job:
+          requires:
+            - shellcheck
+
+          filters:
+            branches:
+              only: master
