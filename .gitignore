@@ -1,6 +1,5 @@
 # editor
 .vscode
-.vs
 
 # executables
 *.exe
@@ -18,16 +17,15 @@
 !.gitkeep
 
 # github template
-!.github
-
-# linux trash folder
-.Trash-*
-
-# temporary file
-.nfs*
+.github
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
 
 # html
 *.html
 
 # database
 .bak
+
+# jekyll template
+_config.yml

@@ -2,8 +2,7 @@
 
 int main(const int argc, const char *argv[])
 {
-	/// Change the method' visibility on client to get documents from the Mongo,
-	/// without the class document, user, etc
+	/// Change the methods visibility on client to get documents from the Mongo
 
 	/// Create a connection
 	Connection connection;

@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-  mongo-s: # Service
-    container_name: mongo-c # Container
+  mongo-s:
+    container_name: mongo-c
     image: mongo
     ports: 
       - '27017:27017'

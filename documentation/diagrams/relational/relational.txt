@@ -1,12 +1,2 @@
-The relational model was created for documentation purpose, using
-the MySQL Workbench tool, www.mysql.com/products/workbench.
-
-If you want to build this application using a relational database,
-read github.com/Sphinxs/Scripts/blob/master/mysql.cpp. To generate
-the database run, inside the MySQL terminal: source relational.sql;
-
-To debug read stackoverflow.com/questions/10741718/mysql-show-innodb-status-output.
-
-To manage the dabase use the github.com/Alecaddd/sequeler.
-
-To run MySQL inside a container read docs.docker.com/samples/library/mysql.
+The relational model was created using MySQL Workbench for documentation
+purposetool.

@@ -169,4 +169,4 @@ The [Proto Buffer](LICENSE) license was created based on [MIT](https://chooseali
 
 #### Contribute
 
-See the [project](https://github.com/Sphinxs/Proto-buffer/projects/1) and the [contribute](https://github.com/Sphinxs/Proto-buffer/blob/master/CONTRIBUTING.md) guide line to contribute to the project.
+See the [project](https://github.com/Sphinxs/Proto-buffer/projects/1) to contribute to the project.
