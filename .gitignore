@@ -17,11 +17,19 @@
 # empty folders
 !.gitkeep
 
+# github template
+!.github
+
 # linux trash folder
 .Trash-*
 
-# temporary files
+# temporary file
 .nfs*
 
-# github template
-!.github
+
+
+# html
+*.html
+
+# database
+.bak
