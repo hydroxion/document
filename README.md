@@ -1,148 +1,172 @@
 ### Proto Buffer
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8293993c1ae54528aadacc58352d6cb7)](https://app.codacy.com/app/Sphinxs/Proto-buffer?utm_source=github.com&utm_medium=referral&utm_content=Sphinxs/Proto-buffer&utm_campaign=Badge_Grade_Dashboard) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)  ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/sphinxs/proto-buffer/dev.svg) [![Maintainability](https://api.codeclimate.com/v1/badges/810a45adf67f8137c712/maintainability)](https://codeclimate.com/github/Sphinxs/Proto-buffer/maintainability) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v1.4%20adopted-ff69b4.svg)](code-of-conduct.md)
+---
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8293993c1ae54528aadacc58352d6cb7)](https://app.codacy.com/app/Sphinxs/Proto-buffer?utm_source=github.com&utm_medium=referral&utm_content=Sphinxs/Proto-buffer&utm_campaign=Badge_Grade_Dashboard) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)  ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/sphinxs/proto-buffer/dev.svg) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v1.4%20adopted-ff69b4.svg)](code-of-conduct.md)
 
 
 ---
 
-Document share application written in C++. See more details in the [presentation](documentation/presentation.pdf).
+Document share application written in C++. More details in the [presentation](documentation/presentation.pdf).
 
 #### Setup
 
-- Docker
+<details> <summary><strong>Docker</strong></summary>
 
 Install the [Docker](https://docs.docker.com/install/) and [Docker Compose](https://docs.docker.com/compose/install/).
 
-Clone and open this repository:
-
 ```sh
+# Clone this repository
 $ git clone https://github.com/Sphinxs/Proto-buffer
 ```
 
 ```sh
+# Open this repository
 $ cd Proto-buffer
 ```
 
-Create all containers:
-
 ```sh
+# Create all containers listed in the Docker Compose file
 $ docker-compose up
 ```
 
-Available containers:
+<details> <summary><strong>Available containers</strong></summary>
 
 | name    | description    |
 | ------- | -------------- |
 | mongo-c | mongo database |
 
-- Compiler
+</details> <!-- Available containers -->
 
-Install GCC, G++, CMake and PKG via package manager:
+</details> <!-- Docker -->
+
+<details> <summary><strong>Compiler</strong></summary>
 
 ```sh
+# Install the GCC, G++, CMake and PKG
 $ apt install build-essential pkg-config gcc g++ cmake
 ```
 
-- Mongo driver
+</details> <!-- Compiler -->
 
-The Mongo CXX its the Mongo driver for C++. The Mongo CXX driver builds on top of the Mongo C driver, the Mongo driver for C language. See all available [drivers](https://docs.mongodb.com/ecosystem/drivers/) and its versions.
 
-> If incompatible versions of Mongo C (and its dependencies) and Mongo CXX are installed, it can cause conflicts in the Mongo CXX compilation. The Mongo C version used here its the 1.13.0 and the Mongo CXX version used here its the 3.3.0
 
-1. Install the Mongo C driver
 
-Get the driver from [Github](https://github.com/mongodb/mongo-c-driver/releases):
+
+
+
+<details> <summary><strong>Mongo driver</strong></summary>
+
+The Mongo CXX is the Mongo driver for C++ language. The Mongo CXX driver builds on top of the Mongo C driver, the Mongo driver for C language. If incompatible versions of Mongo C and Mongo CXX are installed, it can cause conflicts in the Mongo CXX compilation. The Mongo C version used here is the 1.13.0 and the Mongo CXX version used here its the 3.3.0
+
+<details> <summary><strong>Mongo C</strong></summary>
+
+<details> <summary><strong>Install</strong></summary>
 
 ```sh
+# Get the Mongo C driver from Github
 $ wget -c https://github.com/mongodb/mongo-c-driver/archive/1.13.0.zip
 ```
 
-Unzip the driver, create the *cmake-build* required subfolder and open the the subfolder *cmake-build*:
-
 ```sh
+# Unzip the driver
 $ unzip 1.13.0.zip
 ```
 
 ```sh
+# Create the cmake-build required subfolder
 $ mkdir ./mongo-c-driver-1.13.0/cmake-build
 ```
 
 ```sh
+# Open the the subfolder cmake-build
 $ cd ./mongo-c-driver-1.13.0/cmake-build
 ```
 
-Install the dependencies (OpenSSL is required for authentication or for SSL connections to Mongo and Kerberos or LDAP support requires Cyrus SASL):
-
 ```sh
+# Install the dependencies
 $ apt install libssl-dev libsasl2-dev
 ```
 
-Compile the driver:
-
 ```sh
+# Configure the compiler
 $ cmake -DENABLE_AUTOMATIC_INIT_AND_CLEANUP=OFF ..
 ```
 
-Install the compiled driver:
-
 ```sh
+# Compile the driver
 $ make
 ```
 
 ```sh
+# Install the compiled driver
 $ sudo make install
 ```
 
-To remove:
+</details> <!-- Install-->
+
+<details> <summary><strong>Remove</strong></summary>
 
 ```sh
+# Remove the Mongo C driver
 $ sudo /usr/local/share/mongo-c-driver/uninstall.sh
 ```
 
-2. Instal the Mongo CXX driver
+</details> <!-- Remove -->
 
-Get the driver from [Github](https://github.com/mongodb/mongo-cxx-driver/releases):
+</details> <!-- Mongo C -->
+
+<details> <summary><strong>Mongo CXX</strong></summary>
+
+<details> <summary><strong>Install</strong></summary>
 
 ```sh
+# Get the driver from Github
 $ wget -c https://github.com/mongodb/mongo-cxx-driver/archive/r3.3.0.zip
 ```
 
-Unzip the driver and open the build folder:
-
 ```sh
+# Unzip the driver
 $ unzip r3.3.0.zip
 ```
 
 ```sh
+# Open the build subfolder
 $ cd mongo-cxx-driver-r3.3.0/build
 ```
 
-Configure the driver:
-
-To configure `mongocxx` for installation into */usr/local* as well, use the following two CMake commands:
-
 ```sh
+# Configure the driver for installation into /usr/local
 $ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local ..
 ```
 
 ```sh
+# Apply the configuration
 $ sudo make EP_mnmlstc_core
 ```
 
-Compile and install the driver:
-
 ```sh
-$ sudo make && sudo make install
+# Compile the driver
+$ sudo make
 ```
 
-3. Mongo C and Mongo CXX
+```sh
+# Install the driver
+$ sudo make install
+```
 
-The code of both libraries can be found on */usr/local/include* and the shared libraries on */usr/local/lib*.
+The code of both libraries can be found in */usr/local/include* and the shared libraries in */usr/local/lib*.
+
+</details> <!-- Install -->
+
+</details> <!-- Mongo CXX -->
+
+</details> <!-- Mongo driver -->
 
 #### License
 
 The [Proto Buffer](LICENSE) license was created based on [MIT](https://choosealicense.com/licenses/mit/) license and on [Creative Commons 4.0](https://tldrlegal.com/license/creative-commons-attribution-noderivatives-4.0-international-(cc-by-nd-4.0)).
 
-#### To Do
+#### Contribute
 
-See the [To Do](https://github.com/Sphinxs/Proto-buffer/projects/1) and the [contribute](https://github.com/Sphinxs/Proto-buffer/blob/master/CONTRIBUTING.md) guide line to contribute to the project.
+See the [project](https://github.com/Sphinxs/Proto-buffer/projects/1) and the [contribute](https://github.com/Sphinxs/Proto-buffer/blob/master/CONTRIBUTING.md) guide line to contribute to the project.
