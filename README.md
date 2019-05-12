@@ -26,14 +26,15 @@ $ cd Proto-buffer
 
 ```sh
 # Create all containers listed in the Docker Compose file
-$ docker-compose up
+$ sudo docker-compose up
 ```
 
 <details> <summary><strong>Available containers</strong></summary>
 
 | name            | description    |
 | --------------- | -------------- |
-| mongo-container | Mongo database |
+| mongo-container | mongo database |
+| code-container  | code source    |
 
 </details> <!-- Available containers -->
 
