@@ -1,8 +1,15 @@
 version: '3'
 
 services:
-  mongo-s:
-    container_name: mongo-c
+  mongo-service:
+    container_name: mongo-container
     image: mongo
     ports: 
       - '27017:27017'
+  
+  code-service:
+    container_name: code-container
+    image: debian:stretch
+    volumes:
+      - .:/code
+    working_dir: /code

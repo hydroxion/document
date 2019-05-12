@@ -9,10 +9,12 @@ jobs:
       - checkout
       
       - run:
-        command: ../install.sh
+        command: sudo ../install.sh
 
       - run:
         command: make
+      
+      - run:
         command: make run
 
 workflows:

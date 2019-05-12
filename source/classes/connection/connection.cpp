@@ -4,12 +4,12 @@
 
 #define CONNECTION_INSTANCE
 
-///
-/// Only one instance must exist for the entirety of the program
-///
-/// Don't use static, nest the instance in a class or place the
-/// instance in the HPP file, it can cause segmentation fault
-///
+//
+// Only one instance must exist for the entirety of the program
+//
+// Don't use static, nest the instance in a class or place the
+// instance in the HPP file. It can cause segmentation fault
+//
 mongocxx::instance instance;
 
 #endif // CONNECTION_INSTANCE
@@ -18,23 +18,23 @@ Connection::Connection()
 {
 }
 
-Connection::Connection(const std::string &mongodb_uri)
+Connection::Connection(const std::string &uri)
 {
-	this->mongo_uri = mongo_uri;
+	this->uri = uri;
 
-	this->client = mongocxx::client{mongocxx::uri{mongodb_uri}};
+	this->client = mongocxx::client{mongocxx::uri{this->uri}};
 }
 
 Connection::~Connection()
 {
 }
 
-const mongocxx::database Connection::get_database(const std::string &database_name) const
+const mongocxx::database Connection::database(const std::string &database_name) const
 {
 	return this->client[database_name];
 }
 
-const mongocxx::collection Connection::get_collection(const std::string &database_name, const std::string &collection_name) const
+const mongocxx::collection Connection::collection(const std::string &database_name, const std::string &collection_name) const
 {
-	return this->get_database(database_name)[collection_name];
+	return this->database(database_name)[collection_name];
 }
