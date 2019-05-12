@@ -1,2 +1,0 @@
-The relational model was created using MySQL Workbench for documentation
-purposetool.
