@@ -14,7 +14,7 @@ private:
 	//
 	// https://docs.mongodb.com/manual/reference/connection-string/
 	//
-	std::string uri{"mongodb://127.0.0.1:27017"};
+	std::string *uri = new std::string("mongodb://127.0.0.1:27017");
 
 	//
 	// Note that client is not thread-safe, for each thread its necessary to
@@ -23,9 +23,9 @@ private:
 	//
 	// https://mongodb.github.io/mongo-cxx-driver/mongocxx-v3/thread-safety/
 	//
-	mongocxx::client client{mongocxx::uri{this->uri}};
+	mongocxx::client client{mongocxx::uri{*this->uri}};
 
-protected:
+public:
 	//
 	// Default connection to Mongo
 	//
@@ -62,7 +62,9 @@ protected:
 	//
 	// https://stackoverflow.com/questions/10897799/temporary-objects-when-are-they-created-how-do-you-recognise-them-in-code
 	//
-	const mongocxx::database database(const std::string &) const;
+	// https://en.wikipedia.org/wiki/Virtual_method_table
+	//
+	virtual const mongocxx::database database(const std::string &) const;
 
 	//
 	// Get a collection from a database
@@ -75,7 +77,9 @@ protected:
 	//
 	// http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1collection.html
 	//
-	const mongocxx::collection collection(const std::string &, const std::string &) const;
+	// https://en.wikipedia.org/wiki/Virtual_method_table
+	//
+	virtual const mongocxx::collection collection(const std::string &, const std::string &) const;
 };
 
 #endif // CONNECTION

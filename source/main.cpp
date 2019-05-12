@@ -3,13 +3,13 @@
 int main(const int argc, const char *argv[])
 {
 	// Create a connection
-	Connection connection;
+	Connection *connection = new Connection();
 
 	// Get a database
-	connection.database("proto-buffer");
+	connection->database("proto-buffer");
 
 	// Get a database and select a collection from the chosen database
-	mongocxx::collection collection = connection.collection("proto-buffer", "user");
+	mongocxx::collection collection = connection->collection("proto-buffer", "user");
 
 	// Get all documents from the selected collection
 	mongocxx::cursor cursor = collection.find({});

@@ -16,13 +16,16 @@ mongocxx::instance instance;
 
 Connection::Connection()
 {
+	delete this->uri;
+
+	this->uri = nullptr;
 }
 
 Connection::Connection(const std::string &uri)
 {
-	this->uri = uri;
+	this->uri = new std::string(uri);
 
-	this->client = mongocxx::client{mongocxx::uri{this->uri}};
+	this->client = mongocxx::client{mongocxx::uri{*this->uri}};
 }
 
 Connection::~Connection()
