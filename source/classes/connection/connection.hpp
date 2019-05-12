@@ -25,7 +25,7 @@ private:
 	//
 	mongocxx::client client{mongocxx::uri{*this->uri}};
 
-public:
+private:
 	//
 	// Default connection to Mongo
 	//
