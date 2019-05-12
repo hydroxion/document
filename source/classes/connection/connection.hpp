@@ -2,83 +2,80 @@
 
 #define CONNECTION
 
-/// Mongo client
 #include <mongocxx/client.hpp>
 
-/// Mongo URI
 #include <mongocxx/uri.hpp>
 
-/// Mongo instance
 #include <mongocxx/instance.hpp>
 
 class Connection
 {
 private:
-	///
-	/// https://docs.mongodb.com/manual/reference/connection-string/
-	///
-	std::string mongo_uri{"mongodb://127.0.0.1:27017"};
+	//
+	// https://docs.mongodb.com/manual/reference/connection-string/
+	//
+	std::string uri{"mongodb://127.0.0.1:27017"};
 
-	///
-	/// Note that client is not thread-safe, for each thread its necessary to
-	/// give its own mongocxx::client. Don't create two or more clients derived
-	/// from the same mongocxx::client in one (e.g, std::mutex) thread.
-	///
-	/// https://mongodb.github.io/mongo-cxx-driver/mongocxx-v3/thread-safety/
-	///
-	mongocxx::client client{mongocxx::uri{this->mongo_uri}};
+	//
+	// Note that client is not thread-safe, for each thread its necessary to
+	// give its own client. Don't create two or more clients derived from the
+	// same client in one thread, e.g, std::mutex.
+	//
+	// https://mongodb.github.io/mongo-cxx-driver/mongocxx-v3/thread-safety/
+	//
+	mongocxx::client client{mongocxx::uri{this->uri}};
 
 protected:
-	///
-	/// Constructs a default connection to Mongo
-	///
-	/// http://mongocxx.org/api/mongocxx-3.3.0/classmongocxx_1_1client.html
-	///
+	//
+	// Default connection to Mongo
+	//
+	// http://mongocxx.org/api/mongocxx-3.3.0/classmongocxx_1_1client.html
+	//
 	Connection();
 
-	///
-	/// Constructs a personalized connection to Mongo
-	///
-	/// @param mongodb_uri
-	///   A Mongo URI representing the connection parameters
-	///
-	/// Additional options can be specified via options parameter
-	///
-	/// http://mongocxx.org/api/mongocxx-3.3.0/classmongocxx_1_1client.html
-	///
-	explicit Connection(const std::string &mongodb_uri);
+	//
+	// Personalized connection to Mongo
+	//
+	// @param uri
+	//   An URI representing the connection parameters
+	//
+	// Additional options can be specified via options parameter
+	//
+	// http://mongocxx.org/api/mongocxx-3.3.0/classmongocxx_1_1client.html
+	//
+	explicit Connection(const std::string &);
 
-	///
-	/// Destroys a connection
-	///
+	//
+	// Destroys a connection
+	//
 	~Connection();
 
-	///
-	/// Get a database
-	///
-	/// @param database_name
-	///   A database name representing a valid Mongo database
-	///
-	/// A database cannot be obtained from a temporary client object
-	///
-	/// http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1database.html
-	///
-	/// https://stackoverflow.com/questions/10897799/temporary-objects-when-are-they-created-how-do-you-recognise-them-in-code
-	///
-	const mongocxx::database get_database(const std::string &database_name) const;
+	//
+	// Get a database
+	//
+	// @param database_name
+	//   A database name representing a valid Mongo database
+	//
+	// A database cannot be obtained from a temporary client object
+	//
+	// http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1database.html
+	//
+	// https://stackoverflow.com/questions/10897799/temporary-objects-when-are-they-created-how-do-you-recognise-them-in-code
+	//
+	const mongocxx::database database(const std::string &) const;
 
-	///
-	/// Get a collection
-	///
-	/// @param database_name
-	///   A database name representing a valid Mongo database
-	///
-	/// @param collection_name
-	///   A collection name representing a valid Mongo collection
-	///
-	/// http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1collection.html
-	///
-	const mongocxx::collection get_collection(const std::string &database_name, const std::string &collection_name) const;
+	//
+	// Get a collection from a database
+	//
+	// @param database_name
+	//   A database name representing a valid Mongo database
+	//
+	// @param collection_name
+	//   A collection name representing a valid Mongo collection from a database
+	//
+	// http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1collection.html
+	//
+	const mongocxx::collection collection(const std::string &, const std::string &) const;
 };
 
 #endif // CONNECTION

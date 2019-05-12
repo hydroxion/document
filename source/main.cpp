@@ -2,21 +2,19 @@
 
 int main(const int argc, const char *argv[])
 {
-	/// Change the methods visibility on client to get documents from the Mongo
-
-	/// Create a connection
+	// Create a connection
 	Connection connection;
 
-	/// Get a database
-	connection.get_database("proto-buffer");
+	// Get a database
+	connection.database("proto-buffer");
 
-	/// Get a database and select a collection from the database
-	mongocxx::collection collection = connection.get_collection("proto-buffer", "users");
+	// Get a database and select a collection from the chosen database
+	mongocxx::collection collection = connection.collection("proto-buffer", "user");
 
-	/// Get documents from the selected collection
+	// Get all documents from the selected collection
 	mongocxx::cursor cursor = collection.find({});
 
-	/// Show all documents present on cursor
+	// Show all documents in cursor
 	for (auto document : cursor)
 	{
 		std::cout << bsoncxx::to_json(document) << "\n";

@@ -8,24 +8,10 @@
 
 # libraries
 *.so
-*.a
-*.lib
 *.dll
 *.dylib
-
-# empty folders
-!.gitkeep
-
-# github template
-.github
-CONTRIBUTING.md
-CODE_OF_CONDUCT.md
-
-# html
-*.html
+*.a
+*.lib
 
 # database
 .bak
-
-# jekyll template
-_config.yml
