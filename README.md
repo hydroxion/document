@@ -50,15 +50,26 @@ $ apt install build-essential pkg-config gcc g++ cmake
 
 <details> <summary><strong>Mongo driver</strong></summary>
 
-The Mongo CXX is the Mongo driver for the C++ language. The Mongo CXX driver builds on top of the Mongo C driver, the Mongo driver for the C language.
+The Mongo CXX is the Mongo driver for the C++ language and the Mongo C is the Mongo driver for the C language. Mongo CXX uses Mongo C as its base, if incompatible versions of both are installed, the driver can possible don't work. The code of both libraries can be found in */usr/local/include* and the shared libraries in */usr/local/lib*.
 
-If incompatible versions of Mongo C / Mongo CXX are installed, conflicts can happen. The Mongo C version compiled here is the 1.13.0 and the Mongo CXX version is the 3.4.0
+Versions used by this project:
 
-The code of both libraries can be found in */usr/local/include* and the shared libraries in */usr/local/lib*.
+| driver    | version |
+| --------- | ------- |
+| mongo c   | 1.13.0  |
+| mongo cxx | 3.4.0   |
+| mongo     | 4.0.9   |
 
-You can also install throught the available shell script [here](./install.sh), run as `sudo`.
+[Compatible](http://mongocxx.org/mongocxx-v3/installation/) versions. Mongo [cheathseet](./MONGO.md).
 
-Examples of Mongo CXX can be foud [here](https://github.com/mongodb/mongo-cxx-driver/tree/releases/stable/examples).
+<details> <summary><strong>Mongo C and Mongo CXX</strong></summary>
+You can install Mongo C and Mongo CXX through the available Shell script.
+
+```sh
+# Install the Mongo C and Mongo CXX drivers
+$ sudo ./install.sh
+```
+</details>
 
 <details> <summary><strong>Mongo C</strong></summary>
 
@@ -118,6 +129,8 @@ $ sudo /usr/local/share/mongo-c-driver/uninstall.sh
 </details> <!-- Mongo C -->
 
 <details> <summary><strong>Mongo CXX</strong></summary>
+
+Mongo CXX [examples](https://github.com/mongodb/mongo-cxx-driver/tree/releases/stable/examples). Available [classes](http://mongocxx.org/api/mongocxx-3.4.0/annotated.html) in Mongo CXX.
 
 <details> <summary><strong>Install</strong></summary>
 

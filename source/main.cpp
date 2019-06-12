@@ -1,6 +1,6 @@
 #include "headers.hpp"
 
-int main(const int argc, const char *argv[])
+int main(const int argc, const char *argv[], const char *envp[])
 {
 	// Create a connection
 	Connection *connection = new Connection();
@@ -8,22 +8,15 @@ int main(const int argc, const char *argv[])
 	// Get a database
 	connection->database("test");
 
-	// Get a database and select a collection from the chosen database
+	// Get a database and a collection from the database obtained
 	mongocxx::collection collection = connection->collection("test", "user");
 
-	// Get all documents from the selected collection
+	// Query the collection
 	mongocxx::cursor cursor = collection.find({});
 
-	// Show all documents in cursor
-	for (auto document : cursor)
-	{
-		std::cout << bsoncxx::to_json(document) << "\n";
-	}
-
-	// Stream is not available, besides basic, its possible to use the
-	// core (/usr/local/include/bsoncxx/v_noabi/bsoncxx/builder/core.hpp)
-	// to build a specific abstraction
-	auto builder = bsoncxx::builder::stream::document{};
+	// Show all documents in the cursor
+	for (auto &document : cursor)
+		std::cout << bsoncxx::to_json(document) << std::endl;
 
 	return 0;
 }
