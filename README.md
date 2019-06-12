@@ -31,10 +31,9 @@ $ sudo docker-compose up
 
 <details> <summary><strong>Available containers</strong></summary>
 
-| name            | description    |
-| --------------- | -------------- |
-| mongo-container | mongo database |
-| code-container  | code source    |
+| name            | description    | command                                 |
+| --------------- | -------------- | --------------------------------------- |
+| mongo-container | mongo database | `docker exec -it mongo-container mongo` |
 
 </details> <!-- Available containers -->
 
@@ -58,6 +57,8 @@ If incompatible versions of Mongo C / Mongo CXX are installed, conflicts can hap
 The code of both libraries can be found in */usr/local/include* and the shared libraries in */usr/local/lib*.
 
 You can also install throught the available shell script [here](./install.sh), run as `sudo`.
+
+Examples of Mongo CXX can be foud [here](https://github.com/mongodb/mongo-cxx-driver/tree/releases/stable/examples).
 
 <details> <summary><strong>Mongo C</strong></summary>
 

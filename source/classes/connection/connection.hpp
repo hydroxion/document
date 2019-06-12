@@ -25,7 +25,7 @@ private:
 	//
 	mongocxx::client client{mongocxx::uri{*this->uri}};
 
-private:
+protected:
 	//
 	// Default connection to Mongo
 	//
@@ -58,6 +58,9 @@ private:
 	//
 	// A database cannot be obtained from a temporary client object
 	//
+	// If the database you request does not exist, Mongo creates it
+	// when you first store data
+	//
 	// http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1database.html
 	//
 	// https://stackoverflow.com/questions/10897799/temporary-objects-when-are-they-created-how-do-you-recognise-them-in-code
@@ -74,6 +77,9 @@ private:
 	//
 	// @param collection_name
 	//   A collection name representing a valid Mongo collection from a database
+	//
+	// If the database you request does not exist, Mongo creates it
+	// when you first store data
 	//
 	// http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1collection.html
 	//
