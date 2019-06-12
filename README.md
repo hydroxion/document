@@ -6,7 +6,7 @@
 
 ---
 
-Document share application written in C++. More details in the [presentation](documentation/presentation.pdf).
+Document share application, written in C++. More details in the [presentation](documentation/presentation.pdf).
 
 #### Setup
 
@@ -52,7 +52,7 @@ $ apt install build-essential pkg-config gcc g++ cmake
 
 The Mongo CXX is the Mongo driver for the C++ language. The Mongo CXX driver builds on top of the Mongo C driver, the Mongo driver for the C language.
 
-If incompatible versions of Mongo C / Mongo CXX are installed, conflicts can happen. The Mongo C version compiled here is the 1.13.0 and the Mongo CXX version is the 3.3.0
+If incompatible versions of Mongo C / Mongo CXX are installed, conflicts can happen. The Mongo C version compiled here is the 1.13.0 and the Mongo CXX version is the 3.4.0
 
 The code of both libraries can be found in */usr/local/include* and the shared libraries in */usr/local/lib*.
 
@@ -123,17 +123,17 @@ $ sudo /usr/local/share/mongo-c-driver/uninstall.sh
 
 ```sh
 # Get the driver from Github
-$ wget -c https://github.com/mongodb/mongo-cxx-driver/archive/r3.3.0.zip
+$ wget -c https://github.com/mongodb/mongo-cxx-driver/archive/r3.4.0.zip
 ```
 
 ```sh
 # Unzip the driver
-$ unzip r3.3.0.zip
+$ unzip r3.4.0.zip
 ```
 
 ```sh
 # Open the build subfolder
-$ cd mongo-cxx-driver-r3.3.0/build
+$ cd mongo-cxx-driver-r3.4.0/build
 ```
 
 ```sh

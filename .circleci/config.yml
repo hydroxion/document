@@ -13,9 +13,6 @@ jobs:
 
       - run:
         command: make
-      
-      - run:
-        command: make run
 
 workflows:
   version: 2

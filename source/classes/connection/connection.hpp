@@ -25,11 +25,11 @@ private:
 	//
 	mongocxx::client client{mongocxx::uri{*this->uri}};
 
-protected:
+public:
 	//
 	// Default connection to Mongo
 	//
-	// http://mongocxx.org/api/mongocxx-3.3.0/classmongocxx_1_1client.html
+	// http://mongocxx.org/api/mongocxx-3.4.0/classmongocxx_1_1client.html
 	//
 	Connection();
 
@@ -41,7 +41,7 @@ protected:
 	//
 	// Additional options can be specified via options parameter
 	//
-	// http://mongocxx.org/api/mongocxx-3.3.0/classmongocxx_1_1client.html
+	// http://mongocxx.org/api/mongocxx-3.4.0/classmongocxx_1_1client.html
 	//
 	explicit Connection(const std::string &);
 
