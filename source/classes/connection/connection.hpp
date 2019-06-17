@@ -35,7 +35,7 @@ private:
 	//
 	mongocxx::client client{mongocxx::uri{this->uri}};
 
-public:
+protected:
 	//
 	// Default connection to Mongo
 	//

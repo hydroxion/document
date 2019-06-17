@@ -1,6 +1,6 @@
 COMPILER=g++
 
-FLAGS=-Wall -Werror -std=c++17 -O3
+FLAGS=-Wall -Werror -std=c++17 -O3 -Werror=unused-variable
 
 # This compiler configuration uses shared libraries, i.g if the .SO (Linux),
 # .DLL (Windows) or .DYLIB (Mac) shared libraries are not available, the

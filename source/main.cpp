@@ -2,24 +2,29 @@
 
 int main(const int argc, const char *argv[], const char *envp[])
 {
+	// Change from protected to public to use the code below,
+	// on connection.hpp
+
 	// Create a connection
-	Connection *connection = new Connection();
+	// Connection *connection = new Connection();
 
 	// Get a database
-	connection->database("database-name");
+	// connection->database("proto-buffer");
 
 	// Get a database and a collection from the obtained database
-	mongocxx::collection collection = connection->collection("database-name", "collection-name");
+	// mongocxx::collection collection = connection->collection("proto-buffer", "user");
 
 	// Query the collection
-	mongocxx::cursor cursor = collection.find({});
+	// mongocxx::cursor cursor = collection.find({});
 
 	// Show all documents in the cursor
-	for (auto &document : cursor)
-		std::cout << bsoncxx::to_json(document) << std::endl;
+	// for (auto &document : cursor)
+	// 	std::cout << bsoncxx::to_json(document) << std::endl;
 
 	// Create user
 	// User *user = new User("First Name", "Second Name", "e-mail@email.com", "password");
+	//
+	// user->show();
 
 	return 0;
 }
