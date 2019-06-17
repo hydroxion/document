@@ -13,7 +13,7 @@ LIBRARIES=`pkg-config --libs libbson-1.0 libmongoc-1.0 libbsoncxx libmongocxx` -
 
 INCLUDES=`pkg-config --cflags libbson-1.0 libmongoc-1.0 libbsoncxx libmongocxx`
 
-SOURCES=source/classes/*/*.cpp source/classes/*/*.hpp source/*.cpp
+SOURCES=source/settings/*.cpp source/classes/*/*.cpp  source/*.cpp
 
 EXECUTABLE=proto-buffer.bin
 

@@ -20,16 +20,13 @@ Connection::Connection()
 
 Connection::Connection(const std::string &uri)
 {
-	this->uri = new std::string(uri);
+	this->uri = uri;
 
-	this->client = mongocxx::client{mongocxx::uri{*this->uri}};
+	this->client = mongocxx::client{mongocxx::uri{this->uri}};
 }
 
 Connection::~Connection()
 {
-	delete this->uri;
-
-	this->uri = nullptr;
 }
 
 const mongocxx::database Connection::database(const std::string &database_name) const

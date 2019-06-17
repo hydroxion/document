@@ -11,15 +11,20 @@
 // Mongo driver instance (http://mongocxx.org/api/mongocxx-3.4.0/classmongocxx_1_1instance.html)
 #include <mongocxx/instance.hpp>
 
+// Settings
+#include "../../settings/settings.hpp"
+
 class Connection
 {
 private:
+	//	
+	// Mongo URI
 	//
 	// https://docs.mongodb.com/manual/reference/connection-string/
 	//
 	// https://stackoverflow.com/questions/7382602/what-is-the-difference-between-127-0-0-1-and-localhost
 	//
-	std::string *uri = new std::string("mongodb://0.0.0.0:27017");
+	std::string uri{connection_prefix + connection_host + connection_port};
 
 	//
 	// Note that client is not thread-safe, for each thread its necessary to
@@ -28,7 +33,7 @@ private:
 	//
 	// https://mongodb.github.io/mongo-cxx-driver/mongocxx-v3/thread-safety/
 	//
-	mongocxx::client client{mongocxx::uri{*this->uri}};
+	mongocxx::client client{mongocxx::uri{this->uri}};
 
 public:
 	//

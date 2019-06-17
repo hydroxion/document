@@ -1,11 +1,14 @@
-// Standard I/O (https://en.cppreference.com/w/cpp/header/iostream)
+// Standard I/O
 #include <iostream>
 
 // BSON Functionalities (http://mongocxx.org/api/mongocxx-3.4.0/namespacebsoncxx.html)
 #include <bsoncxx/json.hpp>
 
-// BSON Streaming interface
-#include <bsoncxx/builder/stream/document.hpp>
+// Settings
+#include "settings/settings.hpp"
 
 // Mongo connection
 #include "classes/connection/connection.hpp"
+
+// User
+#include "classes/user/user.hpp"
