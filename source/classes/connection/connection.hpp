@@ -64,7 +64,8 @@ protected:
 	// Get a database
 	//
 	// @param database_name
-	//   A database name representing a valid Mongo database
+	//   A database name representing a valid Mongo database, if the
+    //   database doesn't exist, this will be created
 	//
 	// A database cannot be obtained from a temporary client object
 	//
@@ -86,10 +87,11 @@ protected:
 	//   A database name representing a valid Mongo database
 	//
 	// @param collection_name
-	//   A collection name representing a valid Mongo collection from a database
+	//   A collection name representing a valid Mongo collection from
+	//   a database
 	//
-	// If the database you request does not exist, Mongo creates it
-	// when you first store data
+	// If the database or collection you request does not exist, Mongo
+	// creates it when you first store data
 	//
 	// http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1collection.html
 	//
