@@ -40,7 +40,7 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// Search for an user
 	//
-	user->search();
+	user->search_one_by_id();
 
 	return 0;
 }

@@ -14,6 +14,9 @@
 // Tuple
 #include <tuple>
 
+// BSON Exception
+#include <bsoncxx/exception/exception.hpp>
+
 class User : protected Connection, protected Crud
 {
 private:
@@ -75,7 +78,30 @@ public:
     //
     User(const std::string, const std::string, const std::string, const std::string);
 
-    void search();
+    void search_one_by_id()
+    {
+        try
+        {
+            bsoncxx::document::value value = Crud::search_one_by_id(this->collection, "5d0bb7042a554e44db53f142");
+
+            bsoncxx::document::view view = value.view();
+
+            bsoncxx::document::element element = view["first_name"];
+
+            std::cout << element.get_utf8().value.to_string() << std::endl;
+        }
+        catch (const bsoncxx::v_noabi::exception &error)
+        {
+            std::cerr << "An exception occurred: "
+                      << error.what()
+                      << ". File \033[34m"
+                      << __FILE__
+                      << "\033[m at function \033[31m"
+                      << __FUNCTION__
+                      << "\033[m"
+                      << std::endl;
+        }
+    }
 };
 
 #endif // USER

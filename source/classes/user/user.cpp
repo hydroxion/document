@@ -26,24 +26,3 @@ User::User(const std::string first_name = "", const std::string second_name = ""
 
     this->id = std::get<1>(status);
 }
-
-void User::search()
-{
-    bsoncxx::stdx::optional<bsoncxx::document::value> query_result =
-        this->collection.find_one(bsoncxx::builder::stream::document{} << "_id"
-                                                                       << bsoncxx::oid("5d08f65f2a554e7cfd1e9fe2")
-                                                                       << bsoncxx::builder::stream::finalize);
-
-    bsoncxx::document::value doc_value = *query_result;
-
-    bsoncxx::document::view view = doc_value.view();
-
-    bsoncxx::document::element element = view["first_name"];
-
-    std::cout << element.get_utf8().value.to_string();
-    ;
-
-    //    if(query_result) {
-    //     std::cout << bsoncxx::to_json(*query_result) << "\n";
-    //     }
-}
