@@ -19,10 +19,12 @@ User::User(const std::string first_name = "", const std::string second_name = ""
 
     auto status = Crud::insert_one(this->collection, this->view);
 
-    // Error
     if (std::get<0>(status))
     {
+        // Error
     }
-
-    this->id = std::get<1>(status);
+    {
+        // Success
+        this->id = std::get<1>(status);
+    }
 }

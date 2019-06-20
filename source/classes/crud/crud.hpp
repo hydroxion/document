@@ -43,7 +43,7 @@ protected:
     // @param view
     //   A valid BSON document view
     //
-    // The return is a tuple, containing at the index 0 the status of the transaction
+    // The return is a tuple, containing at the index 0 the status of the transaction, as an integer,
     // and at the index 1 the document id
     //
     // Using an uninitialized collection throws a mongocxx::logic_error. A
@@ -61,7 +61,7 @@ protected:
     //
     // http://mongocxx.org/api/current/classmongocxx_1_1result_1_1insert__one.html
     //
-    std::tuple<bool, std::string> insert_one(mongocxx::collection &, bsoncxx::document::view &);
+    virtual std::tuple<bool, std::string> insert_one(mongocxx::collection &, bsoncxx::document::view &);
 
     //
     // Search one document by the attribute _id
@@ -72,9 +72,9 @@ protected:
     // @param id
     //   A OID in string format
     //
-    // The return is a bsoncxx::document::value that can be decomposed in
-    // a bsoncxx::document::view, that can then be decomposed in a
-    // bsoncxx::document::element
+    // The return is a tuple, containing at the index 0 the status of the transaction, as an integer,
+    // and at the index 1 a bsoncxx::document::value that can be decomposed in a bsoncxx::document::view,
+    // that can then be decomposed in a bsoncxx::document::element
     //
     // Example:
     //
@@ -94,7 +94,7 @@ protected:
     //
     // http://mongocxx.org/api/current/classbsoncxx_1_1document_1_1view.html
     //
-    bsoncxx::document::value search_one_by_id(mongocxx::collection &, const std::string &);
+    virtual std::tuple<bool, bsoncxx::document::value> search_one_by_id(mongocxx::collection &, const std::string &);
 };
 
 #endif // CRUD

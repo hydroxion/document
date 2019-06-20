@@ -22,7 +22,7 @@ std::tuple<bool, std::string> Crud::insert_one(mongocxx::collection &collection,
         {
             bsoncxx::oid oid = result->inserted_id().get_oid().value;
 
-            std::cout << "Inserted id: \033[32m"
+            std::cout << "Inserted document id: \033[32m"
                       << oid.to_string()
                       << "\033[m"
                       << std::endl;
@@ -56,12 +56,29 @@ std::tuple<bool, std::string> Crud::insert_one(mongocxx::collection &collection,
     return std::make_tuple(EXIT_SUCCESS, "");
 }
 
-bsoncxx::document::value Crud::search_one_by_id(mongocxx::collection &collection, const std::string &id)
+std::tuple<bool, bsoncxx::document::value> Crud::search_one_by_id(mongocxx::collection &collection, const std::string &id)
 {
     bsoncxx::stdx::optional<bsoncxx::document::value> result =
         collection.find_one(bsoncxx::builder::stream::document{} << "_id"
                                                                  << bsoncxx::oid(bsoncxx::types::b_utf8{id})
                                                                  << bsoncxx::builder::stream::finalize);
+    if (result)
+    {
+        std::cout << "Search document id: \033[32m"
+                  << id
+                  << "\033[m"
+                  << std::endl;
 
-    return (*result);
+        return std::make_tuple(EXIT_SUCCESS, (*result));
+    }
+    else
+    {
+        std::cerr << "The id: \033[33m"
+                  << id
+                  << "\033[m, don't match any document in "
+                  << collection.name()
+                  << std::endl;
+
+        return std::make_tuple(EXIT_FAILURE, (*result));
+    }
 }

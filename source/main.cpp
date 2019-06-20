@@ -40,7 +40,7 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// Search for an user
 	//
-	user->search_one_by_id();
+	user->search_one_by_id("5d0bb7042a554e44db53f142");
 
 	return 0;
 }
