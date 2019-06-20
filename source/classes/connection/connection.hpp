@@ -78,7 +78,7 @@ protected:
 	//
 	// https://en.wikipedia.org/wiki/Virtual_method_table
 	//
-	virtual const mongocxx::database database(const std::string &) const;
+	const mongocxx::database database(const std::string &) const;
 
 	//
 	// Get a collection from a database
@@ -97,7 +97,7 @@ protected:
 	//
 	// https://en.wikipedia.org/wiki/Virtual_method_table
 	//
-	virtual const mongocxx::collection collection(const std::string &, const std::string &) const;
+	const mongocxx::collection collection(const std::string &, const std::string &) const;
 };
 
 #endif // CONNECTION

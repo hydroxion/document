@@ -35,9 +35,11 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// Create a user
 	//
-	User *user = new User("First Name", "Second Name", "e-mail@email.com", "password");
+	// User *user = new User("First Name", "Second Name", "e-mail@email.com", "password");
 
-	user->show();
+	User *user = new User();
+
+	user->search();
 
 	return 0;
 }

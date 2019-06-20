@@ -68,7 +68,7 @@ private:
     {
         try
         {
-            mongocxx::collection collection = this->collection(user_database_name, user_collection_name);
+            mongocxx::collection collection = Connection::collection(user_database_name, user_collection_name);
 
             bsoncxx::stdx::optional<mongocxx::result::insert_one> result = collection.insert_one(this->document_view);
 
@@ -96,7 +96,7 @@ private:
         }
         catch (const mongocxx::exception &error)
         {
-            std::cout << "An exception occurred: " << error.what() << std::endl;
+            std::cerr << "An exception occurred: " << error.what() << std::endl;
 
             return EXIT_FAILURE;
         }
@@ -156,8 +156,26 @@ public:
         this->insert();
     }
 
-    void show()
+    void search()
     {
+        mongocxx::collection collection = Connection::collection(user_database_name, user_collection_name);
+
+        bsoncxx::stdx::optional<bsoncxx::document::value> query_result =
+            collection.find_one(bsoncxx::builder::stream::document{} << "_id"
+                                                                    << bsoncxx::oid("5d08f65f2a554e7cfd1e9fe2")
+                                                                     << bsoncxx::builder::stream::finalize);
+
+        bsoncxx::document::value doc_value = *query_result;
+
+        bsoncxx::document::view view = doc_value.view();
+
+        bsoncxx::document::element element = view["first_name"];
+
+        std::cout << element.get_utf8().value.to_string();;
+        
+        //    if(query_result) {
+        //     std::cout << bsoncxx::to_json(*query_result) << "\n";
+        //     }                                      
     }
 };
 
