@@ -33,12 +33,13 @@ int main(const int argc, const char *argv[], const char *envp[])
 	// 	std::cout << bsoncxx::to_json(document) << std::endl;
 
 	//
-	// Create a user
+	// Create an user
 	//
-	// User *user = new User("First Name", "Second Name", "e-mail@email.com", "password");
+	User *user = new User("First Name", "Second Name", "e-mail@email.com", "password");
 
-	User *user = new User();
-
+	//
+	// Search for an user
+	//
 	user->search();
 
 	return 0;

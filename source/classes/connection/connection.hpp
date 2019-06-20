@@ -2,13 +2,13 @@
 
 #define CONNECTION
 
-// Mongo client connection (http://mongocxx.org/api/mongocxx-3.4.0/classmongocxx_1_1client.html)
+// Mongo client connection
 #include <mongocxx/client.hpp>
 
-// Mongo connection URI (http://mongocxx.org/api/mongocxx-3.4.0/classmongocxx_1_1uri.html)
+// Mongo connection URI
 #include <mongocxx/uri.hpp>
 
-// Mongo driver instance (http://mongocxx.org/api/mongocxx-3.4.0/classmongocxx_1_1instance.html)
+// Mongo driver instance
 #include <mongocxx/instance.hpp>
 
 // Settings
@@ -17,19 +17,18 @@
 class Connection
 {
 private:
-	//	
-	// Mongo URI
+	//
+	// URI store the connection parameters
 	//
 	// https://docs.mongodb.com/manual/reference/connection-string/
-	//
-	// https://stackoverflow.com/questions/7382602/what-is-the-difference-between-127-0-0-1-and-localhost
 	//
 	std::string uri{connection_prefix + connection_host + connection_port};
 
 	//
+	// Client store the connection to Mongo
+	//
 	// Note that client is not thread-safe, for each thread its necessary to
-	// give its own client. Don't create two or more clients derived from the
-	// same client in one thread, e.g std::mutex.
+	// give its own client
 	//
 	// https://mongodb.github.io/mongo-cxx-driver/mongocxx-v3/thread-safety/
 	//
@@ -64,38 +63,32 @@ protected:
 	// Get a database
 	//
 	// @param database_name
-	//   A database name representing a valid Mongo database, if the
-    //   database doesn't exist, this will be created
+	//   A database name representing a valid Mongo database
 	//
-	// A database cannot be obtained from a temporary client object
-	//
-	// If the database you request does not exist, Mongo creates it
+	// If the database you request doesn't exist, Mongo creates it
 	// when you first store data
+	//
+	// A database can't be obtained from a temporary client object
 	//
 	// http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1database.html
 	//
 	// https://stackoverflow.com/questions/10897799/temporary-objects-when-are-they-created-how-do-you-recognise-them-in-code
 	//
-	// https://en.wikipedia.org/wiki/Virtual_method_table
-	//
 	const mongocxx::database database(const std::string &) const;
 
 	//
-	// Get a collection from a database
+	// Get a database collection
 	//
 	// @param database_name
 	//   A database name representing a valid Mongo database
 	//
 	// @param collection_name
-	//   A collection name representing a valid Mongo collection from
-	//   a database
+	//   A collection name representing a valid Mongo database collection
 	//
-	// If the database or collection you request does not exist, Mongo
-	// creates it when you first store data
+	// If the database you request doesn't exist, Mongo creates it
+	// when you first store data
 	//
 	// http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1collection.html
-	//
-	// https://en.wikipedia.org/wiki/Virtual_method_table
 	//
 	const mongocxx::collection collection(const std::string &, const std::string &) const;
 };
