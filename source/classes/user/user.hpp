@@ -14,30 +14,25 @@
 // Tuple
 #include <tuple>
 
+// Settings
+#include "../../settings/settings.hpp"
+
 class User : protected Connection, protected Crud
 {
 private:
     //
-    // The id stores an user document identification. The default document identification
-    // is created based on the OID pattern
+    // ID store an document identification
     //
     std::string id = "";
 
     //
-    // The view stores an user representation. The view is derived from a value, that is
-    // derived from a document.
-    //
-    // By default the view is empty, but when an User object is created, i.g an user is registered,
-    // and no errors are issued, the view receives the registered user document
+    // View store an document visualization. The view is derived from a value, that is
+    // derived from a document
     //
     bsoncxx::document::view view;
 
     //
-    // The collection stores a Mongo database collection. If the database or collection
-    // you request does not exist, Mongo creates it when you first store data
-    //
-    // The user database name and user collection name, come from the settings header,
-    // which contains the shared variables
+    // Collection store a database collection
     //
     mongocxx::collection collection = Connection::collection(user_database_name, user_collection_name);
 
@@ -51,21 +46,16 @@ public:
     // Personalized user
     //
     // @param first_name
-    //   User first name, to display in the profile
+    //   First name
     //
     // @param second_name
-    //   User second name, to display in the profile
+    //   second name
     //
     // @param email
-    //   User e-mail, to login, along with a password
+    //   E-mail, to login in, along with a password
     //
     // @param password
-    //   User password, to login, along with an e-mail
-    //
-    // When the personalized constructor its used, a document is created in a
-    // database collection. The document id is stored in the private id attribute
-    //
-    // http://mongocxx.org/mongocxx-v3/tutorial/#create-a-document
+    //   Password, to login in
     //
     // http://mongocxx.org/api/current/classbsoncxx_1_1builder_1_1stream_1_1document.html
     //
@@ -73,26 +63,17 @@ public:
     //
     // http://mongocxx.org/api/current/classbsoncxx_1_1document_1_1view.html
     //
-    User(const std::string, const std::string, const std::string, const std::string);
+    explicit User(const std::string &, const std::string &, const std::string &, const std::string &);
 
-    bool search_one_by_id(const std::string &id)
-    {
-        auto status = Crud::search_one_by_id(this->collection, id);
-
-        if (std::get<0>(status))
-        {
-            // Error
-            return EXIT_FAILURE;
-        }
-
-        bsoncxx::document::value value = std::get<1>(status);
-
-        bsoncxx::document::view view = value.view();
-
-        this->view = view;
-
-        return EXIT_SUCCESS;
-    }
+    //
+    // Search one document by id
+    //
+    // @param id
+    //   A OID, in string format
+    //
+    // This is a 'interface' to the implementation of Crud::search_one_by_id
+    //
+    const bool search_one_by_id(const std::string &);
 };
 
 #endif // USER

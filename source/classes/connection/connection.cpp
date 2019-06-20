@@ -5,10 +5,8 @@
 #define CONNECTION_INSTANCE
 
 //
-// The mongocxx::instance initialize and shut down the driver
-//
-// Only one mongocxx::instance must exist for the entirety of
-// the program
+// The mongocxx::instance initialize and shut down Mongo the drive. Only
+//one instance must exist for the entirety of the program
 //
 // Don't create a static mongocxx::instance, nest the mongocxx::instance
 // in a class or place the mongocxx::instance in the HPP file; it can

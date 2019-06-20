@@ -1,12 +1,6 @@
 #include <string>
 
 //
-// If some resource that is configured here doesn't exist in the
-// Mongo database, when the application runs with the current
-// setting, all the resources are going to be created
-//
-
-//
 // Connection
 //
 extern std::string connection_prefix;

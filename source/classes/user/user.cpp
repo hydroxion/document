@@ -4,7 +4,7 @@ User::User() : Connection(), Crud()
 {
 }
 
-User::User(const std::string first_name = "", const std::string second_name = "", const std::string email = "", const std::string password = "") : Connection(), Crud()
+User::User(const std::string &first_name = "", const std::string &second_name = "", const std::string &email = "", const std::string &password = "") : Connection(), Crud()
 {
     auto document = bsoncxx::builder::stream::document{};
 
@@ -23,8 +23,27 @@ User::User(const std::string first_name = "", const std::string second_name = ""
     {
         // Error
     }
+    else
     {
         // Success
         this->id = std::get<1>(status);
+    }
+}
+
+const bool User::search_one_by_id(const std::string &id = "")
+{
+    auto status = Crud::search_one_by_id(this->collection, id);
+
+    if (std::get<0>(status))
+    {
+        // Error
+        return EXIT_FAILURE;
+    }
+    else
+    {
+        // Success
+        this->view = std::get<1>(status);
+
+        return EXIT_SUCCESS;
     }
 }

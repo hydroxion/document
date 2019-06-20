@@ -4,7 +4,7 @@ Crud::Crud()
 {
 }
 
-std::tuple<bool, std::string> Crud::insert_one(mongocxx::collection &collection, bsoncxx::document::view &view)
+const std::tuple<bool, std::string> Crud::insert_one(mongocxx::collection &collection, bsoncxx::document::view &view)
 {
     try
     {
@@ -37,10 +37,6 @@ std::tuple<bool, std::string> Crud::insert_one(mongocxx::collection &collection,
     }
     catch (const mongocxx::exception &error)
     {
-        //
-        // If the connection is refused, check the status of the Mongo server
-        // and the settings, in the source/settings/settings.cpp
-        //
         std::cerr << "An exception occurred: "
                   << error.what()
                   << ". File \033[34m"
@@ -56,22 +52,18 @@ std::tuple<bool, std::string> Crud::insert_one(mongocxx::collection &collection,
     return std::make_tuple(EXIT_SUCCESS, "");
 }
 
-std::tuple<bool, bsoncxx::document::value> Crud::search_one_by_id(mongocxx::collection &collection, const std::string &id)
+const std::tuple<bool, bsoncxx::document::view> Crud::search_one_by_id(mongocxx::collection &collection, const std::string &id)
 {
     bsoncxx::stdx::optional<bsoncxx::document::value> result =
         collection.find_one(bsoncxx::builder::stream::document{} << "_id"
                                                                  << bsoncxx::oid(bsoncxx::types::b_utf8{id})
                                                                  << bsoncxx::builder::stream::finalize);
-    if (result)
-    {
-        std::cout << "Search document id: \033[32m"
-                  << id
-                  << "\033[m"
-                  << std::endl;
 
-        return std::make_tuple(EXIT_SUCCESS, (*result));
-    }
-    else
+    bsoncxx::document::value value = (*result);
+
+    bsoncxx::document::view view = value.view();
+
+    if (!result)
     {
         std::cerr << "The id: \033[33m"
                   << id
@@ -79,6 +71,15 @@ std::tuple<bool, bsoncxx::document::value> Crud::search_one_by_id(mongocxx::coll
                   << collection.name()
                   << std::endl;
 
-        return std::make_tuple(EXIT_FAILURE, (*result));
+        return std::make_tuple(EXIT_FAILURE, view);
+    }
+    else
+    {
+        std::cout << "Search document id: \033[32m"
+                  << id
+                  << "\033[m"
+                  << std::endl;
+
+        return std::make_tuple(EXIT_SUCCESS, view);
     }
 }

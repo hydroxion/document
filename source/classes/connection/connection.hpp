@@ -14,6 +14,9 @@
 // Settings
 #include "../../settings/settings.hpp"
 
+// String
+#include <string>
+
 class Connection
 {
 private:
@@ -46,7 +49,7 @@ protected:
 	// Personalized connection to Mongo
 	//
 	// @param uri
-	//   An URI representing the connection parameters
+	//   An URI store the connection parameters
 	//
 	// Additional options can be specified via 'options' parameter
 	//
@@ -63,7 +66,7 @@ protected:
 	// Get a database
 	//
 	// @param database_name
-	//   A database name representing a valid Mongo database
+	//   A database name
 	//
 	// If the database you request doesn't exist, Mongo creates it
 	// when you first store data
@@ -80,10 +83,10 @@ protected:
 	// Get a database collection
 	//
 	// @param database_name
-	//   A database name representing a valid Mongo database
+	//   A database name
 	//
 	// @param collection_name
-	//   A collection name representing a valid Mongo database collection
+	//   A database collection name
 	//
 	// If the database you request doesn't exist, Mongo creates it
 	// when you first store data
