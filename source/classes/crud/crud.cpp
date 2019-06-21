@@ -4,7 +4,7 @@ Crud::Crud()
 {
 }
 
-const std::tuple<bool, std::string> Crud::insert_one(mongocxx::collection &collection, bsoncxx::document::view &view)
+const std::tuple<bool, std::string> Crud::insert_one(mongocxx::collection &collection, bsoncxx::document::view &view) const
 {
     try
     {
@@ -52,16 +52,12 @@ const std::tuple<bool, std::string> Crud::insert_one(mongocxx::collection &colle
     return std::make_tuple(EXIT_SUCCESS, "");
 }
 
-const std::tuple<bool, bsoncxx::document::view> Crud::search_one_by_id(mongocxx::collection &collection, const std::string &id)
+const std::tuple<bool, bsoncxx::document::value> Crud::search_one_by_id(mongocxx::collection &collection, const std::string &id) const
 {
     bsoncxx::stdx::optional<bsoncxx::document::value> result =
         collection.find_one(bsoncxx::builder::stream::document{} << "_id"
                                                                  << bsoncxx::oid(bsoncxx::types::b_utf8{id})
                                                                  << bsoncxx::builder::stream::finalize);
-
-    bsoncxx::document::value value = (*result);
-
-    bsoncxx::document::view view = value.view();
 
     if (!result)
     {
@@ -71,7 +67,7 @@ const std::tuple<bool, bsoncxx::document::view> Crud::search_one_by_id(mongocxx:
                   << collection.name()
                   << std::endl;
 
-        return std::make_tuple(EXIT_FAILURE, view);
+        return std::make_tuple(EXIT_FAILURE, (*result));
     }
     else
     {
@@ -80,6 +76,6 @@ const std::tuple<bool, bsoncxx::document::view> Crud::search_one_by_id(mongocxx:
                   << "\033[m"
                   << std::endl;
 
-        return std::make_tuple(EXIT_SUCCESS, view);
+        return std::make_tuple(EXIT_SUCCESS, (*result));
     }
 }

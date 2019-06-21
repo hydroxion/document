@@ -56,7 +56,7 @@ protected:
     //
     // http://mongocxx.org/api/current/classmongocxx_1_1result_1_1insert__one.html
     //
-    const virtual std::tuple<bool, std::string> insert_one(mongocxx::collection &, bsoncxx::document::view &);
+    const virtual std::tuple<bool, std::string> insert_one(mongocxx::collection &, bsoncxx::document::view &) const;
 
     //
     // Search one document by id
@@ -67,13 +67,16 @@ protected:
     // @param id
     //   A OID, in string format
     //
+    // The bsoncxx::document::view can't be derived from the bsoncxx::document::value and
+    // returned as a final object, because the bsoncxx::document::view is internally a const
+    //
     // http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1collection.html
     //
     // http://mongocxx.org/api/mongocxx-3.4.0/classbsoncxx_1_1document_1_1value.html
     //
     // http://mongocxx.org/api/current/classbsoncxx_1_1document_1_1view.html
     //
-    const  std::tuple<bool, bsoncxx::document::view> search_one_by_id(mongocxx::collection &, const std::string &);
+    const std::tuple<bool, bsoncxx::document::value> search_one_by_id(mongocxx::collection &, const std::string &) const;
 };
 
 #endif // CRUD

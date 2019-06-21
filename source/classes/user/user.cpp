@@ -42,7 +42,9 @@ const bool User::search_one_by_id(const std::string &id = "")
     else
     {
         // Success
-        this->view = std::get<1>(status);
+        bsoncxx::document::value value = std::get<1>(status);
+
+        this->view = value.view();
 
         return EXIT_SUCCESS;
     }
