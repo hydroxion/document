@@ -59,6 +59,11 @@ protected:
     const virtual std::tuple<bool, std::string> insert_one(mongocxx::collection &, bsoncxx::document::view &) const;
 
     //
+	// Destroys a crud
+	//
+	~Crud();
+
+    //
     // Search one document by id
     //
     // @param collection

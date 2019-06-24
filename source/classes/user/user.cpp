@@ -15,7 +15,9 @@ User::User(const std::string &first_name = "", const std::string &second_name = 
                                      << "password" << bsoncxx::types::b_utf8{password}
                                      << bsoncxx::builder::stream::finalize;
 
-    this->view = value.view();
+    bsoncxx::document::view view = value.view();
+
+    this->view = view;
 
     auto status = Crud::insert_one(this->collection, this->view);
 
@@ -28,6 +30,10 @@ User::User(const std::string &first_name = "", const std::string &second_name = 
         // Success
         this->id = std::get<1>(status);
     }
+}
+
+User::~User()
+{
 }
 
 const bool User::search_one_by_id(const std::string &id = "")
@@ -44,7 +50,9 @@ const bool User::search_one_by_id(const std::string &id = "")
         // Success
         bsoncxx::document::value value = std::get<1>(status);
 
-        this->view = value.view();
+        bsoncxx::document::view view = value.view();
+
+        this->view = view;
 
         return EXIT_SUCCESS;
     }

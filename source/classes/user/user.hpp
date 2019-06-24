@@ -66,6 +66,11 @@ public:
     explicit User(const std::string &, const std::string &, const std::string &, const std::string &);
 
     //
+    // Destroys a user
+    //
+    ~User();
+
+    //
     // Search one document by id
     //
     // @param id

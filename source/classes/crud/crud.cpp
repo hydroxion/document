@@ -52,6 +52,10 @@ const std::tuple<bool, std::string> Crud::insert_one(mongocxx::collection &colle
     return std::make_tuple(EXIT_SUCCESS, "");
 }
 
+Crud::~Crud()
+{
+}
+
 const std::tuple<bool, bsoncxx::document::value> Crud::search_one_by_id(mongocxx::collection &collection, const std::string &id) const
 {
     bsoncxx::stdx::optional<bsoncxx::document::value> result =
