@@ -26,13 +26,28 @@ private:
     std::string id = "";
 
     //
+    // Value store a document or a view. The value need to be stored because the memory
+    // between a view or document and a value its shared, if the view or document its
+    // its saved, but the value its not, an error is issued.
+    //
+    // The value is updated if the personalized constructor or the search method is called
+    //
+    // https://stackoverflow.com/questions/56740730/unset-document-element-in-mongo-cxx/56741600?noredirect=1#comment100043541_56741600
+    //
+    bsoncxx::document::value value = bsoncxx::builder::stream::document{} << bsoncxx::builder::stream::finalize;
+
+    //
     // View store an document visualization. The view is derived from a value, that is
     // derived from a document
+    //
+    // The view is updated if the personalized constructor or the search method is called
     //
     bsoncxx::document::view view;
 
     //
-    // Collection store a database collection
+    // Collection store a database collection.
+    //
+    // The collection is only updated when the object is created
     //
     mongocxx::collection collection = Connection::collection(user_database_name, user_collection_name);
 

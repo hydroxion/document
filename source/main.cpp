@@ -14,5 +14,7 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	user->search_one_by_id("5d0afc602a554e628e63ddb2");
 
+	user->get_element();
+
 	return 0;
 }
