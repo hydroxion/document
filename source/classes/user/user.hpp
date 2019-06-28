@@ -94,6 +94,11 @@ public:
     // This is a 'interface' to the implementation of Crud::search_one_by_id
     //
     const bool search_one_by_id(const std::string &);
+
+    //
+    // Get a string attribute from a view
+    //
+    const std::string string_attribute(const std::string &attribute_name) const;
 };
 
 #endif // USER

@@ -73,13 +73,59 @@ const std::tuple<bool, bsoncxx::document::value> Crud::search_one_by_id(mongocxx
 
         return std::make_tuple(EXIT_FAILURE, (*result));
     }
-    else
+
+    std::cout << "Search document id: \033[32m"
+              << id
+              << "\033[m"
+              << std::endl;
+
+    return std::make_tuple(EXIT_SUCCESS, (*result));
+}
+
+const std::string Crud::string_attribute(const std::string &attribute_name, const bsoncxx::document::view &view) const
+{
+    if (view.empty())
     {
-        std::cout << "Search document id: \033[32m"
-                  << id
+        std::cout << "Empty view. No search was made"
+                  << std::endl;
+
+        return std::string();
+    }
+
+    //
+    // The exception don't share scope, its required to place the entire
+    // code inside the try block or place the instances outside the block
+    //
+    try
+    {
+        bsoncxx::document::element element = view[attribute_name];
+
+        if (element.type() != bsoncxx::type::k_utf8)
+        {
+            std::cerr << "Invalid element type"
+                      << ". File \033[34m"
+                      << __FILE__
+                      << "\033[m at function \033[31m"
+                      << __FUNCTION__
+                      << "\033[m"
+                      << std::endl;
+
+            return std::string();
+        }
+
+        return element.get_utf8().value.to_string();
+    }
+    catch (const bsoncxx::v_noabi::exception &error)
+    {
+        std::cerr << "Attribute not found in view ("
+                  << error.what()
+                  << "). File \033[34m"
+                  << __FILE__
+                  << "\033[m at function \033[31m"
+                  << __FUNCTION__
                   << "\033[m"
                   << std::endl;
 
-        return std::make_tuple(EXIT_SUCCESS, (*result));
+        return std::string();
     }
 }

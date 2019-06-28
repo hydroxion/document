@@ -31,9 +31,12 @@ private:
 	// Client store the connection to Mongo
 	//
 	// Note that client is not thread-safe, for each thread its necessary to
-	// give its own client
+	// give its own client, if you want the client to be thread safe, use the
+	// connection pool instead the client
 	//
 	// https://mongodb.github.io/mongo-cxx-driver/mongocxx-v3/thread-safety/
+	//
+	// http://mongocxx.org/mongocxx-v3/configuration/#configuring-a-connection-pool
 	//
 	mongocxx::client client{mongocxx::uri{this->uri}};
 

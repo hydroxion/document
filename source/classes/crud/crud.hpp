@@ -17,6 +17,9 @@
 // BSON Functionalities
 #include <bsoncxx/json.hpp>
 
+// BSON Exception
+#include <bsoncxx/exception/exception.hpp>
+
 // BSON Document streaming interface
 #include <bsoncxx/builder/stream/document.hpp>
 
@@ -59,9 +62,9 @@ protected:
     const virtual std::tuple<bool, std::string> insert_one(mongocxx::collection &, bsoncxx::document::view &) const;
 
     //
-	// Destroys a crud
-	//
-	~Crud();
+    // Destroys a crud
+    //
+    ~Crud();
 
     //
     // Search one document by id
@@ -82,6 +85,14 @@ protected:
     // http://mongocxx.org/api/current/classbsoncxx_1_1document_1_1view.html
     //
     const std::tuple<bool, bsoncxx::document::value> search_one_by_id(mongocxx::collection &, const std::string &) const;
+
+    //
+    // Get a string attribute from a view
+    //
+    // @param attribute_name
+    //   Attribute name, as a string
+    //
+    const std::string string_attribute(const std::string &, const bsoncxx::document::view &) const;
 };
 
 #endif // CRUD

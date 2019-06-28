@@ -25,7 +25,6 @@ User::User(const std::string &first_name = "", const std::string &second_name = 
     }
     else
     {
-        // Success
         this->id = std::get<1>(status);
     }
 }
@@ -43,13 +42,15 @@ const bool User::search_one_by_id(const std::string &id = "")
         // Error
         return EXIT_FAILURE;
     }
-    else
-    {
-        // Success
-        this->value = std::get<1>(status);
 
-        this->view = value.view();
+    this->value = std::get<1>(status);
 
-        return EXIT_SUCCESS;
-    }
+    this->view = value.view();
+
+    return EXIT_SUCCESS;
+}
+
+const std::string User::string_attribute(const std::string &attribute_name) const
+{
+    return Crud::string_attribute(attribute_name, this->view);
 }

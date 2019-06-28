@@ -14,7 +14,11 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	user->search_one_by_id("5d0afc602a554e628e63ddb2");
 
-	user->get_element();
+	//
+	// Get an attribute from the document found in the
+	// search above
+	//
+	std::cout << "Attribute: " << user->string_attribute("first_name") << std::endl;
 
 	return 0;
 }
