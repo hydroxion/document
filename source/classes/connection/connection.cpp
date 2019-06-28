@@ -40,3 +40,32 @@ const mongocxx::collection Connection::collection(const std::string &database_na
 {
 	return this->database(database_name)[collection_name];
 }
+
+const int Connection::ping() const
+{
+	try
+	{
+		bsoncxx::document::value value = bsoncxx::builder::stream::document{} << "ismaster"
+																			  << bsoncxx::types::b_int32{1}
+																			  << bsoncxx::builder::stream::finalize;
+
+		bsoncxx::document::value result = this->client["admin"].run_command(value.view());
+
+		bsoncxx::document::element element = result.view()["ok"];
+
+		return (int)element.get_double().value;
+	}
+	catch (const mongocxx::operation_exception &error)
+	{
+		std::cerr << "An exception occurred: "
+				  << error.what()
+				  << ". File \033[34m"
+				  << __FILE__
+				  << "\033[m at function \033[31m"
+				  << __FUNCTION__
+				  << "\033[m"
+				  << std::endl;
+
+		return 0;
+	}
+}

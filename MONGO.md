@@ -147,6 +147,11 @@ Inside the Mongo CLI, you can run the commands below.
 # db.collection-name.save({'key': 'value', document})
 > db.collection-name.update({'key': 'value'}, {$set: {'key1':'value1'}})
 
+#
+# See the data type of an attribute
+# 
+> typeof db.collection-name.find().attribute-name
+
 # Remove a document
 #
 # To specify the remotion of only one document set the option justOne

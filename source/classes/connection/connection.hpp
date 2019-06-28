@@ -17,6 +17,15 @@
 // String
 #include <string>
 
+// Standard I/O
+#include <iostream>
+
+// BSON Document streaming interface
+#include <bsoncxx/builder/stream/document.hpp>
+
+// Operation exception
+#include <mongocxx/exception/operation_exception.hpp>
+
 class Connection
 {
 private:
@@ -97,6 +106,13 @@ protected:
 	// http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1collection.html
 	//
 	const mongocxx::collection collection(const std::string &, const std::string &) const;
+
+	//
+	// Check if the Mongo is online
+	//
+	// http://mongocxx.org/api/current/classmongocxx_1_1database.html#a1ce8581871d060bce35739a682fc35e9
+	//
+	const int ping() const;
 };
 
 #endif // CONNECTION
