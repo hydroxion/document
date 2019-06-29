@@ -6,6 +6,18 @@ User::User() : Connection(), Crud()
 
 User::User(const std::string &first_name = "", const std::string &second_name = "", const std::string &email = "", const std::string &password = "") : Connection(), Crud()
 {
+    auto status_email = Crud::search_one_by_string(this->collection, "email", email);
+
+    if (!std::get<0>(status_email))
+    {
+        this->logged = false;
+
+        std::cerr << "E-mail duplicated. The registration was not allowed."
+                  << std::endl;
+
+        return;
+    }
+
     auto document = bsoncxx::builder::stream::document{};
 
     this->value = document
