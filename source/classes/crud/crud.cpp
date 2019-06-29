@@ -240,27 +240,27 @@ const int Crud::update_one_by_id(mongocxx::collection &collection, const std::st
 
         if (result->modified_count())
         {
-            std::cout << "The document that the id "
+            std::cout << "The document that the id \033[32m"
                       << id
-                      << " references was updated"
+                      << "\033[m references was updated"
                       << std::endl;
 
             return EXIT_SUCCESS;
         }
         else if (result->matched_count())
         {
-            std::cout << "The document that the id "
+            std::cout << "The document that the id \033[33m"
                       << id
-                      << " references was not updated"
+                      << "\033[m references was not updated, no changes were detected"
                       << std::endl;
 
             return EXIT_SUCCESS;
         }
         else
         {
-            std::cout << "The document that the id "
+            std::cout << "The document that the id \033[31m"
                       << id
-                      << " references don't exist"
+                      << "\033[m references don't exist"
                       << std::endl;
 
             return EXIT_FAILURE;

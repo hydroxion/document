@@ -5,7 +5,7 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// Create an user
 	//
-	// User *user = new User("First Name", "Second Name", "e-mail@email.com", "password");
+	// User *user = new User("first name", "second name", "e-mail@email.com", "password");
 	//
 	User *user = new User();
 
@@ -46,7 +46,7 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// Update one document attribute, that has a string value, by id
 	//
-	// user->update_one_by_id();
+	// user->update_one_by_id("first_name", "First Name");
 
 	return 0;
 }

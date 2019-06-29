@@ -150,6 +150,9 @@ protected:
     // @param attribute_value
     //   Attribute value
     //
+    // If some attribute that don't exist in the document, that is being update,
+    // is received, the attribute its created if the document is found by the id
+    //
     // http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1collection.html
     //
     // http://mongocxx.org/api/current/classmongocxx_1_1collection.html#aece5216e5ae6fc3316c9da604f3b28f9

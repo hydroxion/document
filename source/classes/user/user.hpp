@@ -148,6 +148,17 @@ public:
     //   A OID
     //
     const int delete_one_by_id();
+
+    //
+    // Update one document attribute, that has a string value, by id
+    //
+    // @param attribute
+    //   Attribute name
+    //
+    // @param attribute_value
+    //   Attribute value
+    //
+    const int update_one_by_id(const std::string &attribute, const std::string &attribute_value);
 };
 
 #endif // USER

@@ -123,7 +123,7 @@ const bool User::login(const std::string &email, const std::string &password)
 
         this->logged = true;
 
-        std::cout << "Access granted"
+        std::cout << "Access \033[32mgranted\033[m"
                   << std::endl;
 
         return EXIT_SUCCESS;
@@ -132,7 +132,7 @@ const bool User::login(const std::string &email, const std::string &password)
     {
         this->logged = false;
 
-        std::cout << "Access denied"
+        std::cout << "Access \033[31mdenied\033[m, wrong password"
                   << std::endl;
 
         return EXIT_FAILURE;
@@ -148,7 +148,7 @@ const int User::delete_one_by_id()
 {
     if (this->id.empty())
     {
-        std::cout << "Id not found in the object"
+        std::cout << "\033[33mId\033[m not found in the object"
                   << std::endl;
 
         return EXIT_FAILURE;
@@ -169,6 +169,23 @@ const int User::delete_one_by_id()
 
             this->logged = false;
         }
+
+        return exit_status;
+    }
+}
+
+const int update_one_by_id(const std::string &attribute, const std::string &attribute_value)
+{
+    if (this->id.empty())
+    {
+        std::cout << "\033[33mId\033[m not found in the object"
+                  << std::endl;
+
+        return EXIT_FAILURE;
+    }
+    else
+    {
+        unsigned exit_status = Crud::update_one_by_id(this->collection, this->id, attribute, attribute_value);
 
         return exit_status;
     }
