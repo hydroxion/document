@@ -23,7 +23,7 @@ private:
     //
     // ID store an document identification
     //
-    std::string id = "";
+    std::string id = std::string();
 
     //
     // Value store a document or a view. The value need to be stored because the memory
@@ -50,6 +50,14 @@ private:
     // The collection is only updated when the object is created
     //
     mongocxx::collection collection = Connection::collection(user_database_name, user_collection_name);
+
+    //
+    // Logged store the state of the user in the system, if the user is logged or not
+    //
+    // The logged status is only updated at the login function and in the personalized
+    // constructor
+    //
+    bool logged = false;
 
 public:
     //
@@ -108,7 +116,23 @@ public:
     //   Attribute value, along with the attribute name to match
     //   a document
     //
-    const bool search_one_by_string(const std::string &attribute = "", const std::string &attribute_value = "");
+    const bool search_one_by_string(const std::string &attribute, const std::string &attribute_value);
+
+    //
+    // Login
+    //
+    // @param email
+    //   E-mail, to login in, along with a password
+    //
+    // @param password
+    //   Password, to login in
+    //
+    const bool login(const std::string &email, const std::string &password);
+
+    //
+    // Get the login status
+    //
+    const bool login_status();
 
     //
     // Get a string attribute from a view

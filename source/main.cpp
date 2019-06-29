@@ -27,5 +27,10 @@ int main(const int argc, const char *argv[], const char *envp[])
 
 	std::cout << "Get string attribute (search one by string): " << user->get_string_attribute("email") << std::endl;
 
+	//
+	// Login
+	//
+	user->login("e-mail@email.com", "password");
+
 	return 0;
 }

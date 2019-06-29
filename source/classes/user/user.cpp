@@ -26,14 +26,17 @@ User::User(const std::string &first_name = "", const std::string &second_name = 
     else
     {
         this->id = std::get<1>(status);
+
+        this->logged = true;
     }
 }
 
 User::~User()
 {
+    this->logged = false;
 }
 
-const bool User::search_one_by_id(const std::string &id = "")
+const bool User::search_one_by_id(const std::string &id)
 {
     auto status = Crud::search_one_by_id(this->collection, id);
 
@@ -70,4 +73,43 @@ const bool User::search_one_by_string(const std::string &attribute, const std::s
 const std::string User::get_string_attribute(const std::string &attribute_name) const
 {
     return Crud::get_string_attribute(attribute_name, this->view);
+}
+
+const bool login(const std::string &email, const std::string &password)
+{
+    auto status = Crud::search_one_by_string(this->collection, "email", email);
+
+    if (std::get<0>(status))
+    {
+        // Error
+        this->logged = false;
+
+        return EXIT_FAILURE;
+    }
+
+    bsoncxx::document::value value = std::get<1>(status);
+
+    if (Crud::get_string_attribute("password", value.view()).compare(password) == 0)
+    {
+        this->value = value;
+
+        this->view = value.view();
+
+        this->logged = true;
+
+        std::cout << "Access granted";
+
+        return EXIT_SUCCESS;
+    }
+
+    this->logged = false;
+
+    std::cout << "Access denied";
+
+    return EXIT_FAILURE;
+}
+
+const bool login_status()
+{
+    return this->logged;
 }
