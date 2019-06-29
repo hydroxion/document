@@ -5,8 +5,8 @@
 #define CONNECTION_INSTANCE
 
 //
-// The mongocxx::instance initialize and shut down Mongo the drive. Only
-//one instance must exist for the entirety of the program
+// The mongocxx::instance initialize and shut down Mongo. Only one instance
+// must exist for the entirety of the program
 //
 // Don't create a static mongocxx::instance, nest the mongocxx::instance
 // in a class or place the mongocxx::instance in the HPP file; it can
@@ -49,9 +49,9 @@ const int Connection::ping() const
 																			  << bsoncxx::types::b_int32{1}
 																			  << bsoncxx::builder::stream::finalize;
 
-		bsoncxx::document::value result = this->client["admin"].run_command(value.view());
+		bsoncxx::document::value _value = this->client["admin"].run_command(value.view());
 
-		bsoncxx::document::element element = result.view()["ok"];
+		bsoncxx::document::element element = _value.view()["ok"];
 
 		return (int)element.get_double().value;
 	}
@@ -66,6 +66,6 @@ const int Connection::ping() const
 				  << "\033[m"
 				  << std::endl;
 
-		return 0;
+		return EXIT_FAILURE;
 	}
 }

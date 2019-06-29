@@ -2,13 +2,13 @@
 
 #define CONNECTION
 
-// Mongo client connection
+// Mongo client
 #include <mongocxx/client.hpp>
 
-// Mongo connection URI
+// Mongo client URI
 #include <mongocxx/uri.hpp>
 
-// Mongo driver instance
+// Mongo instance
 #include <mongocxx/instance.hpp>
 
 // Settings
@@ -20,7 +20,7 @@
 // Standard I/O
 #include <iostream>
 
-// BSON Document streaming interface
+// BSON Document interface
 #include <bsoncxx/builder/stream/document.hpp>
 
 // Operation exception
@@ -37,11 +37,11 @@ private:
 	std::string uri{connection_prefix + connection_host + connection_port};
 
 	//
-	// Client store the connection to Mongo
+	// Client store the connection
 	//
 	// Note that client is not thread-safe, for each thread its necessary to
-	// give its own client, if you want the client to be thread safe, use the
-	// connection pool instead the client
+	// give its own client. If you want the client to be thread safe, use the
+	// connection pool instead
 	//
 	// https://mongodb.github.io/mongo-cxx-driver/mongocxx-v3/thread-safety/
 	//
@@ -51,19 +51,19 @@ private:
 
 protected:
 	//
-	// Default connection to Mongo
+	// Default connection
 	//
 	// http://mongocxx.org/api/mongocxx-3.4.0/classmongocxx_1_1client.html
 	//
 	Connection();
 
 	//
-	// Personalized connection to Mongo
+	// Personalized connection
 	//
 	// @param uri
-	//   An URI store the connection parameters
+	//   URI, that store the connection parameters
 	//
-	// Additional options can be specified via 'options' parameter
+	// Additional options can be specified via options parameter
 	//
 	// http://mongocxx.org/api/mongocxx-3.4.0/classmongocxx_1_1client.html
 	//
@@ -108,7 +108,7 @@ protected:
 	const mongocxx::collection collection(const std::string &, const std::string &) const;
 
 	//
-	// Check if the Mongo is online
+	// Ping
 	//
 	// http://mongocxx.org/api/current/classmongocxx_1_1database.html#a1ce8581871d060bce35739a682fc35e9
 	//

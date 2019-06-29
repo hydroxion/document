@@ -75,7 +75,7 @@ const std::string User::get_string_attribute(const std::string &attribute_name) 
     return Crud::get_string_attribute(attribute_name, this->view);
 }
 
-const bool login(const std::string &email, const std::string &password)
+const bool User::login(const std::string &email, const std::string &password)
 {
     auto status = Crud::search_one_by_string(this->collection, "email", email);
 
@@ -97,19 +97,21 @@ const bool login(const std::string &email, const std::string &password)
 
         this->logged = true;
 
-        std::cout << "Access granted";
+        std::cout << "Access granted"
+                  << std::endl;
 
         return EXIT_SUCCESS;
     }
 
     this->logged = false;
 
-    std::cout << "Access denied";
+    std::cout << "Access denied"
+              << std::endl;
 
     return EXIT_FAILURE;
 }
 
-const bool login_status()
+const bool User::login_status()
 {
     return this->logged;
 }

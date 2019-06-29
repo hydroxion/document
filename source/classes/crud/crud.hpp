@@ -20,13 +20,13 @@
 // BSON Exception
 #include <bsoncxx/exception/exception.hpp>
 
-// BSON Document streaming interface
+// BSON Document interface
 #include <bsoncxx/builder/stream/document.hpp>
 
 // Mongo CXX namespace (and BSON polyfills)
 #include <mongocxx/stdx.hpp>
 
-// Mongo client connection
+// Mongo client
 #include <mongocxx/client.hpp>
 
 class Crud
@@ -38,16 +38,18 @@ protected:
     Crud();
 
     //
-    // Insert one document view in a Mongo database collection
+    // Destroys a crud
+    //
+    ~Crud();
+
+    //
+    // Insert one document in a collection
     //
     // @param collection
-    //   A database collection object
+    //   A database collection
     //
     // @param view
     //   A BSON document view
-    //
-    // Using an uninitialized collection throws a mongocxx::logic_error. A
-    // mongocxx::logic_error is a mongocxx::exception / std::system_error
     //
     // http://mongocxx.org/api/current/classbsoncxx_1_1exception.html
     //
@@ -59,24 +61,16 @@ protected:
     //
     // http://mongocxx.org/api/current/classmongocxx_1_1result_1_1insert__one.html
     //
-    const virtual std::tuple<bool, std::string> insert_one(mongocxx::collection &, bsoncxx::document::view &) const;
-
-    //
-    // Destroys a crud
-    //
-    ~Crud();
+    const std::tuple<bool, std::string> insert_one(mongocxx::collection &, const bsoncxx::document::view &) const;
 
     //
     // Search one document by id
     //
     // @param collection
-    //   A database collection object
+    //   A database collection
     //
     // @param id
-    //   A OID, in string format
-    //
-    // The bsoncxx::document::view can't be derived from the bsoncxx::document::value and
-    // returned as a final object, because the bsoncxx::document::view is internally a const
+    //   A OID
     //
     // http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1collection.html
     //
@@ -87,20 +81,16 @@ protected:
     const std::tuple<bool, bsoncxx::document::value> search_one_by_id(mongocxx::collection &, const std::string &) const;
 
     //
-    // Search one document using any attribute that has a string value
+    // Search one document by any attribute, that has a string value
     //
     // @param collection
-    //   A database collection object
+    //   A database collection
     //
     // @param attribute
-    //   Attribute name, as a string
+    //   Attribute name
     //
     // @param attribute_value
-    //   Attribute value, along with the attribute name to match
-    //   a document
-    //
-    // The bsoncxx::document::view can't be derived from the bsoncxx::document::value and
-    // returned as a final object, because the bsoncxx::document::view is internally a const
+    //   Attribute value
     //
     // http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1collection.html
     //
@@ -111,10 +101,17 @@ protected:
     const std::tuple<bool, bsoncxx::document::value> search_one_by_string(mongocxx::collection &, const std::string &, const std::string &) const;
 
     //
-    // Get a string attribute from a view
+    // Get any attribute, from a view
     //
-    // @param attribute_name
-    //   Attribute name, as a string
+    // @param attribute
+    //   Attribute name
+    //
+    // @param view
+    //   A BSON document view
+    //
+    // http://mongocxx.org/api/mongocxx-3.4.0/classbsoncxx_1_1document_1_1value.html
+    //
+    // http://mongocxx.org/api/current/classbsoncxx_1_1document_1_1view.html
     //
     const std::string get_string_attribute(const std::string &, const bsoncxx::document::view &) const;
 };

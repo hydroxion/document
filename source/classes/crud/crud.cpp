@@ -4,7 +4,11 @@ Crud::Crud()
 {
 }
 
-const std::tuple<bool, std::string> Crud::insert_one(mongocxx::collection &collection, bsoncxx::document::view &view) const
+Crud::~Crud()
+{
+}
+
+const std::tuple<bool, std::string> Crud::insert_one(mongocxx::collection &collection, const bsoncxx::document::view &view) const
 {
     try
     {
@@ -52,34 +56,51 @@ const std::tuple<bool, std::string> Crud::insert_one(mongocxx::collection &colle
     return std::make_tuple(EXIT_SUCCESS, "");
 }
 
-Crud::~Crud()
-{
-}
-
 const std::tuple<bool, bsoncxx::document::value> Crud::search_one_by_id(mongocxx::collection &collection, const std::string &id) const
 {
-    bsoncxx::stdx::optional<bsoncxx::document::value> result =
-        collection.find_one(bsoncxx::builder::stream::document{} << "_id"
-                                                                 << bsoncxx::oid(bsoncxx::types::b_utf8{id})
-                                                                 << bsoncxx::builder::stream::finalize);
-
-    if (!result)
+    try
     {
-        std::cerr << "The id: \033[33m"
-                  << id
-                  << "\033[m, don't match any document in "
-                  << collection.name()
+        bsoncxx::stdx::optional<bsoncxx::document::value> result =
+            collection.find_one(bsoncxx::builder::stream::document{} << "_id"
+                                                                     << bsoncxx::oid(bsoncxx::types::b_utf8{id})
+                                                                     << bsoncxx::builder::stream::finalize);
+
+        if (!result)
+        {
+            std::cerr << "The id: \033[33m"
+                      << id
+                      << "\033[m, don't match any document in "
+                      << collection.name()
+                      << " or the attribute don't exist in the collection documents"
+                      << std::endl;
+
+            return std::make_tuple(EXIT_FAILURE, (*result));
+        }
+        else
+        {
+            std::cout << "Search one by id: \033[32m"
+                      << id
+                      << "\033[m"
+                      << std::endl;
+
+            return std::make_tuple(EXIT_SUCCESS, (*result));
+        }
+    }
+    catch (const bsoncxx::v_noabi::exception &error)
+    {
+        bsoncxx::stdx::optional<bsoncxx::document::value> result;
+
+        std::cerr << "An exception occurred: "
+                  << error.what()
+                  << ". File \033[34m"
+                  << __FILE__
+                  << "\033[m at function \033[31m"
+                  << __FUNCTION__
+                  << "\033[m"
                   << std::endl;
 
         return std::make_tuple(EXIT_FAILURE, (*result));
     }
-
-    std::cout << "Search document by id: \033[32m"
-              << id
-              << "\033[m"
-              << std::endl;
-
-    return std::make_tuple(EXIT_SUCCESS, (*result));
 }
 
 const std::tuple<bool, bsoncxx::document::value> Crud::search_one_by_string(mongocxx::collection &collection, const std::string &attribute, const std::string &attribute_value) const
@@ -95,17 +116,20 @@ const std::tuple<bool, bsoncxx::document::value> Crud::search_one_by_string(mong
                   << attribute_value
                   << "\033[m, don't match any document in "
                   << collection.name()
+                  << " or the attribute don't exist in the collection documents"
                   << std::endl;
 
         return std::make_tuple(EXIT_FAILURE, (*result));
     }
+    else
+    {
+        std::cout << "Search one by string (" << attribute << "): \033[32m"
+                  << attribute_value
+                  << "\033[m"
+                  << std::endl;
 
-    std::cout << "Search document by " << attribute << ": \033[32m"
-              << attribute_value
-              << "\033[m"
-              << std::endl;
-
-    return std::make_tuple(EXIT_SUCCESS, (*result));
+        return std::make_tuple(EXIT_SUCCESS, (*result));
+    }
 }
 
 const std::string Crud::get_string_attribute(const std::string &attribute_name, const bsoncxx::document::view &view) const
@@ -120,7 +144,7 @@ const std::string Crud::get_string_attribute(const std::string &attribute_name, 
 
     //
     // The exception don't share scope, its required to place the entire
-    // code inside the try block or place the instances outside the block
+    // code in the try block or place the instances outside the block
     //
     try
     {

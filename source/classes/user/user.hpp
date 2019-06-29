@@ -97,7 +97,7 @@ public:
     // Search one document by id
     //
     // @param id
-    //   A OID, in string format
+    //   A OID
     //
     // This is a 'interface' to the implementation of Crud::search_one_by_id
     //
@@ -107,10 +107,10 @@ public:
     // Search one document using any attribute that has a string value
     //
     // @param collection
-    //   A database collection object
+    //   A database collection
     //
     // @param attribute
-    //   Attribute name, as a string
+    //   Attribute name
     //
     // @param attribute_value
     //   Attribute value, along with the attribute name to match
@@ -126,6 +126,8 @@ public:
     //
     // @param password
     //   Password, to login in
+    //
+    // https://www.geeksforgeeks.org/stdstringcompare-in-c/
     //
     const bool login(const std::string &email, const std::string &password);
 

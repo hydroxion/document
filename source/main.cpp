@@ -10,27 +10,33 @@ int main(const int argc, const char *argv[], const char *envp[])
 	User *user = new User();
 
 	//
-	// Search for an user
+	// Search an user
 	//
-	user->search_one_by_id("5d0afc602a554e628e63ddb2");
+	// user->search_one_by_id("");
 
 	//
-	// Get an attribute from the document found in the
-	// search above
+	// Get an attribute, that has a string value
 	//
-	std::cout << "Get string attribute (search one by id): " << user->get_string_attribute("first_name") << std::endl << std::endl;
+	// std::cout << "Get string attribute (search one by id): " << user->get_string_attribute("email");
 
 	//
-	// Search for a document using any attribute that has a string value
+	// Search one document by any attribute, that has a string value
 	//
-	user->search_one_by_string("email", "e-mail@email.com");
+	// user->search_one_by_string("email", "e-mail@email.com");
+	//
+	// std::cout << "Get string attribute (search one by string): " << user->get_string_attribute("email") << std::endl;
 
-	std::cout << "Get string attribute (search one by string): " << user->get_string_attribute("email") << std::endl;
+	//
+	// Login status
+	//
+	// std::cout << "Login status: " << user->login_status() << std::endl;
 
 	//
 	// Login
 	//
 	user->login("e-mail@email.com", "password");
+
+	std::cout << "Login status: " << user->login_status() << std::endl;
 
 	return 0;
 }
