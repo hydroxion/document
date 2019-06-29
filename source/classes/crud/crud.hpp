@@ -29,6 +29,9 @@
 // Mongo client
 #include <mongocxx/client.hpp>
 
+// Bulk exception
+#include <mongocxx/exception/bulk_write_exception.hpp>
+
 class Crud
 {
 protected:
@@ -114,6 +117,21 @@ protected:
     // http://mongocxx.org/api/current/classbsoncxx_1_1document_1_1view.html
     //
     const std::string get_string_attribute(const std::string &, const bsoncxx::document::view &) const;
+
+    //
+    // Delete one document by id
+    //
+    // @param collection
+    //   A database collection
+    //
+    // @param id
+    //   A OID
+    //
+    // http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1collection.html
+    //
+    // http://mongocxx.org/api/current/classmongocxx_1_1collection.html#a7c6a65c7da3c14692c226ca86d108c39
+    //
+    const int delete_one_by_id(mongocxx::collection &, const std::string &);
 };
 
 #endif // CRUD

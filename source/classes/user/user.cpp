@@ -120,7 +120,7 @@ const bool User::login(const std::string &email, const std::string &password)
         bsoncxx::oid oid = this->view["_id"].get_oid().value;
 
         this->id = oid.to_string();
-        
+
         this->logged = true;
 
         std::cout << "Access granted"
@@ -142,4 +142,34 @@ const bool User::login(const std::string &email, const std::string &password)
 const bool User::login_status()
 {
     return this->logged;
+}
+
+const int User::delete_one_by_id()
+{
+    if (this->id.empty())
+    {
+        std::cout << "Id not found in the object"
+                  << std::endl;
+
+        return EXIT_FAILURE;
+    }
+    else
+    {
+        unsigned exit_status = Crud::delete_one_by_id(this->collection, this->id);
+
+        if (!exit_status)
+        {
+            this->id = std::string();
+
+            this->value = bsoncxx::builder::stream::document{} << bsoncxx::builder::stream::finalize;
+
+            bsoncxx::document::view view;
+
+            this->view = view;
+
+            this->logged = false;
+        }
+
+        return exit_status;
+    }
 }

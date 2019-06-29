@@ -142,10 +142,6 @@ const std::string Crud::get_string_attribute(const std::string &attribute_name, 
         return std::string();
     }
 
-    //
-    // The exception don't share scope, its required to place the entire
-    // code in the try block or place the instances outside the block
-    //
     try
     {
         bsoncxx::document::element element = view[attribute_name];
@@ -177,5 +173,59 @@ const std::string Crud::get_string_attribute(const std::string &attribute_name, 
                   << std::endl;
 
         return std::string();
+    }
+}
+
+const int Crud::delete_one_by_id(mongocxx::collection &collection, const std::string &id)
+{
+    try
+    {
+        mongocxx::stdx::optional<mongocxx::result::delete_result> result = collection.delete_one(bsoncxx::builder::stream::document{} << "_id"
+                                                                                                                                      << bsoncxx::oid(bsoncxx::types::b_utf8{id})
+                                                                                                                                      << bsoncxx::builder::stream::finalize);
+        if (result->deleted_count())
+        {
+            std::cout << "The document that the id "
+                      << id
+                      << " references was removed"
+                      << std::endl;
+
+            return EXIT_SUCCESS;
+        }
+        else
+        {
+            std::cout << "The document that the id "
+                      << id
+                      << " references don't exist"
+                      << std::endl;
+
+            return EXIT_FAILURE;
+        }
+    }
+    catch (const mongocxx::bulk_write_exception &error)
+    {
+        std::cerr << "An exception occurred: "
+                  << error.what()
+                  << ". File \033[34m"
+                  << __FILE__
+                  << "\033[m at function \033[31m"
+                  << __FUNCTION__
+                  << "\033[m"
+                  << std::endl;
+
+        return EXIT_FAILURE;
+    }
+    catch (const bsoncxx::v_noabi::exception &error)
+    {
+        std::cerr << "An exception occurred: "
+                  << error.what()
+                  << ". File \033[34m"
+                  << __FILE__
+                  << "\033[m at function \033[31m"
+                  << __FUNCTION__
+                  << "\033[m"
+                  << std::endl;
+
+        return EXIT_FAILURE;
     }
 }

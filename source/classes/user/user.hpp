@@ -140,6 +140,14 @@ public:
     // Login status
     //
     const bool login_status();
+
+    //
+    // Delete one document by id
+    //
+    // @param id
+    //   A OID
+    //
+    const int delete_one_by_id();
 };
 
 #endif // USER
