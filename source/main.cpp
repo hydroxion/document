@@ -22,9 +22,9 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// Search one document by any attribute, that has a string value
 	//
-	// user->search_one_by_string("email", "e-mail@email.com");
-	//
-	// std::cout << "Get string attribute (search one by string): " << user->get_string_attribute("email") << std::endl;
+	user->search_one_by_string("email", "e-mail@email.com");
+	
+	std::cout << "Get string attribute (search one by string): " << user->get_string_attribute("email") << std::endl;
 
 	//
 	// Login status

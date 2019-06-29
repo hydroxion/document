@@ -17,11 +17,18 @@ User::User(const std::string &first_name = "", const std::string &second_name = 
 
     this->view = value.view();
 
-    auto status = Crud::insert_one(this->collection, this->view);
+    auto status = Crud::insert_one(this->collection, value.view());
 
     if (std::get<0>(status))
     {
         // Error
+        std::cerr << "Internal error when creating an object"
+                  << ". File \033[34m"
+                  << __FILE__
+                  << "\033[m at function \033[31m"
+                  << __FUNCTION__
+                  << "\033[m"
+                  << std::endl;
     }
     else
     {
@@ -33,7 +40,6 @@ User::User(const std::string &first_name = "", const std::string &second_name = 
 
 User::~User()
 {
-    this->logged = false;
 }
 
 const bool User::search_one_by_id(const std::string &id)
@@ -45,12 +51,14 @@ const bool User::search_one_by_id(const std::string &id)
         // Error
         return EXIT_FAILURE;
     }
+    else
+    {
+        this->value = std::get<1>(status);
 
-    this->value = std::get<1>(status);
+        this->view = this->value.view();
 
-    this->view = value.view();
-
-    return EXIT_SUCCESS;
+        return EXIT_SUCCESS;
+    }
 }
 
 const bool User::search_one_by_string(const std::string &attribute, const std::string &attribute_value)
@@ -62,15 +70,17 @@ const bool User::search_one_by_string(const std::string &attribute, const std::s
         // Error
         return EXIT_FAILURE;
     }
+    else
+    {
+        this->value = std::get<1>(status);
 
-    this->value = std::get<1>(status);
+        this->view = this->value.view();
 
-    this->view = value.view();
-
-    return EXIT_SUCCESS;
+        return EXIT_SUCCESS;
+    }
 }
 
-const std::string User::get_string_attribute(const std::string &attribute_name) const
+const std::string User::get_string_attribute(const std::string &attribute_name)
 {
     return Crud::get_string_attribute(attribute_name, this->view);
 }
@@ -93,7 +103,7 @@ const bool User::login(const std::string &email, const std::string &password)
     {
         this->value = value;
 
-        this->view = value.view();
+        this->view = this->value.view();
 
         this->logged = true;
 
@@ -102,13 +112,15 @@ const bool User::login(const std::string &email, const std::string &password)
 
         return EXIT_SUCCESS;
     }
+    else
+    {
+        this->logged = false;
 
-    this->logged = false;
+        std::cout << "Access denied"
+                  << std::endl;
 
-    std::cout << "Access denied"
-              << std::endl;
-
-    return EXIT_FAILURE;
+        return EXIT_FAILURE;
+    }
 }
 
 const bool User::login_status()

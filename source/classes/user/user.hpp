@@ -5,7 +5,7 @@
 // Connection
 #include "../connection/connection.hpp"
 
-// Crud
+// CRUD
 #include "../crud/crud.hpp"
 
 // Standard I/O
@@ -26,33 +26,34 @@ private:
     std::string id = std::string();
 
     //
-    // Value store a document or a view. The value need to be stored because the memory
-    // between a view or document and a value its shared, if the view or document its
-    // its saved, but the value its not, an error is issued.
+    // Value store a document value. The value need to be stored because the memory
+    // between a view and a value is shared. If a view is derived from a value
+    // and the reference to the value is removed, the view is not valid anymore
     //
-    // The value is updated if the personalized constructor or the search method is called
+    // The value is updated if the personalized constructor, login or any search method
+    // is called
     //
     // https://stackoverflow.com/questions/56740730/unset-document-element-in-mongo-cxx/56741600?noredirect=1#comment100043541_56741600
     //
     bsoncxx::document::value value = bsoncxx::builder::stream::document{} << bsoncxx::builder::stream::finalize;
 
     //
-    // View store an document visualization. The view is derived from a value, that is
-    // derived from a document
+    // View store an document visualization. The view is derived from a value.
     //
-    // The view is updated if the personalized constructor or the search method is called
+    // The view is updated if the personalized constructor, login or any search
+    // method is called
     //
     bsoncxx::document::view view;
 
     //
-    // Collection store a database collection.
+    // Collection store a database collection
     //
     // The collection is only updated when the object is created
     //
     mongocxx::collection collection = Connection::collection(user_database_name, user_collection_name);
 
     //
-    // Logged store the state of the user in the system, if the user is logged or not
+    // Logged store the login status
     //
     // The logged status is only updated at the login function and in the personalized
     // constructor
@@ -99,24 +100,26 @@ public:
     // @param id
     //   A OID
     //
-    // This is a 'interface' to the implementation of Crud::search_one_by_id
-    //
     const bool search_one_by_id(const std::string &);
 
     //
-    // Search one document using any attribute that has a string value
-    //
-    // @param collection
-    //   A database collection
+    // Search one document by any attribute, that has a string value
     //
     // @param attribute
     //   Attribute name
     //
     // @param attribute_value
-    //   Attribute value, along with the attribute name to match
-    //   a document
+    //   Attribute value
     //
-    const bool search_one_by_string(const std::string &attribute, const std::string &attribute_value);
+    const bool search_one_by_string(const std::string &, const std::string &);
+
+    //
+    // Get any attribute, from a view
+    //
+    // @param attribute
+    //   Attribute name
+    //
+    const std::string get_string_attribute(const std::string &);
 
     //
     // Login
@@ -129,17 +132,12 @@ public:
     //
     // https://www.geeksforgeeks.org/stdstringcompare-in-c/
     //
-    const bool login(const std::string &email, const std::string &password);
+    const bool login(const std::string &, const std::string &);
 
     //
-    // Get the login status
+    // Login status
     //
     const bool login_status();
-
-    //
-    // Get a string attribute from a view
-    //
-    const std::string get_string_attribute(const std::string &attribute_name) const;
 };
 
 #endif // USER
