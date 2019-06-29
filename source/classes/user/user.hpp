@@ -23,6 +23,8 @@ private:
     //
     // ID store an document identification
     //
+    // The id is only updated in the personalized constructor and in the login method
+    //
     std::string id = std::string();
 
     //
