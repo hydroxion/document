@@ -229,3 +229,80 @@ const int Crud::delete_one_by_id(mongocxx::collection &collection, const std::st
         return EXIT_FAILURE;
     }
 }
+
+const int Crud::update_one_by_id(mongocxx::collection &collection, const std::string &id, const std::string &attribute, const std::string &attribute_value) const
+{
+    try
+    {
+        mongocxx::stdx::optional<mongocxx::result::update> result = collection.update_one(
+            bsoncxx::builder::stream::document{} << "_id" << bsoncxx::oid(bsoncxx::types::b_utf8{id}) << bsoncxx::builder::stream::finalize,
+            bsoncxx::builder::stream::document{} << "$set" << bsoncxx::builder::stream::open_document << bsoncxx::types::b_utf8{attribute} << bsoncxx::types::b_utf8{attribute_value} << bsoncxx::builder::stream::close_document << bsoncxx::builder::stream::finalize);
+
+        if (result->modified_count())
+        {
+            std::cout << "The document that the id "
+                      << id
+                      << " references was updated"
+                      << std::endl;
+
+            return EXIT_SUCCESS;
+        }
+        else if (result->matched_count())
+        {
+            std::cout << "The document that the id "
+                      << id
+                      << " references was not updated"
+                      << std::endl;
+
+            return EXIT_SUCCESS;
+        }
+        else
+        {
+            std::cout << "The document that the id "
+                      << id
+                      << " references don't exist"
+                      << std::endl;
+
+            return EXIT_FAILURE;
+        }
+    }
+    catch (const mongocxx::bulk_write_exception &error)
+    {
+        std::cerr << "An exception occurred: "
+                  << error.what()
+                  << ". File \033[34m"
+                  << __FILE__
+                  << "\033[m at function \033[31m"
+                  << __FUNCTION__
+                  << "\033[m"
+                  << std::endl;
+
+        return EXIT_FAILURE;
+    }
+    catch (const bsoncxx::v_noabi::exception &error)
+    {
+        std::cerr << "An exception occurred: "
+                  << error.what()
+                  << ". File \033[34m"
+                  << __FILE__
+                  << "\033[m at function \033[31m"
+                  << __FUNCTION__
+                  << "\033[m"
+                  << std::endl;
+
+        return EXIT_FAILURE;
+    }
+    catch (const mongocxx::logic_error &error)
+    {
+        std::cerr << "An exception occurred: "
+                  << error.what()
+                  << ". File \033[34m"
+                  << __FILE__
+                  << "\033[m at function \033[31m"
+                  << __FUNCTION__
+                  << "\033[m"
+                  << std::endl;
+
+        return EXIT_FAILURE;
+    }
+}

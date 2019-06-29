@@ -131,7 +131,32 @@ protected:
     //
     // http://mongocxx.org/api/current/classmongocxx_1_1collection.html#a7c6a65c7da3c14692c226ca86d108c39
     //
+    // http://mongocxx.org/api/current/classmongocxx_1_1result_1_1delete__result.html
+    //
     const int delete_one_by_id(mongocxx::collection &, const std::string &);
+
+    //
+    // Update one document attribute, that has a string value, by id
+    //
+    // @param collection
+    //   A database collection
+    //
+    // @param id
+    //   A OID
+    //
+    // @param attribute
+    //   Attribute name
+    //
+    // @param attribute_value
+    //   Attribute value
+    //
+    // http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1collection.html
+    //
+    // http://mongocxx.org/api/current/classmongocxx_1_1collection.html#aece5216e5ae6fc3316c9da604f3b28f9
+    //
+    // http://mongocxx.org/api/current/classmongocxx_1_1result_1_1update.html
+    //
+    const int update_one_by_id(mongocxx::collection &, const std::string &, const std::string &, const std::string &) const;
 };
 
 #endif // CRUD

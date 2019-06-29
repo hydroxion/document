@@ -126,8 +126,11 @@ Inside the Mongo CLI, you can run the commands below.
 # Find all documents of a collection, in a structured way
 > db.collection-name.find().pretty()
 
-# Find a only one document
-> db.collection.findOne()
+# Find only one document
+> db.collection-name.findOne()
+
+# Find one document by its _id
+> db.collection-name.find({'_id': ObjectId('id')})
 
 # Update a document in a existing document
 #
