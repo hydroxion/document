@@ -74,7 +74,7 @@ const std::tuple<bool, bsoncxx::document::value> Crud::search_one_by_id(mongocxx
         return std::make_tuple(EXIT_FAILURE, (*result));
     }
 
-    std::cout << "Search document id: \033[32m"
+    std::cout << "Search document by id: \033[32m"
               << id
               << "\033[m"
               << std::endl;
@@ -82,7 +82,33 @@ const std::tuple<bool, bsoncxx::document::value> Crud::search_one_by_id(mongocxx
     return std::make_tuple(EXIT_SUCCESS, (*result));
 }
 
-const std::string Crud::string_attribute(const std::string &attribute_name, const bsoncxx::document::view &view) const
+const std::tuple<bool, bsoncxx::document::value> Crud::search_one_by_string(mongocxx::collection &collection, const std::string &attribute, const std::string &attribute_value) const
+{
+    bsoncxx::stdx::optional<bsoncxx::document::value> result =
+        collection.find_one(bsoncxx::builder::stream::document{} << bsoncxx::types::b_utf8{attribute}
+                                                                 << bsoncxx::types::b_utf8{attribute_value}
+                                                                 << bsoncxx::builder::stream::finalize);
+
+    if (!result)
+    {
+        std::cerr << "The " << attribute << ": \033[33m"
+                  << attribute_value
+                  << "\033[m, don't match any document in "
+                  << collection.name()
+                  << std::endl;
+
+        return std::make_tuple(EXIT_FAILURE, (*result));
+    }
+
+    std::cout << "Search document by " << attribute << ": \033[32m"
+              << attribute_value
+              << "\033[m"
+              << std::endl;
+
+    return std::make_tuple(EXIT_SUCCESS, (*result));
+}
+
+const std::string Crud::get_string_attribute(const std::string &attribute_name, const bsoncxx::document::view &view) const
 {
     if (view.empty())
     {

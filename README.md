@@ -6,7 +6,7 @@
 
 ---
 
-Document share application, written in C++. More details in the [presentation](documentation/presentation.pdf).
+Document (PDF) share application, written in C++. More details in the [presentation](documentation/presentation.pdf).
 
 #### Setup
 

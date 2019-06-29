@@ -96,9 +96,24 @@ public:
     const bool search_one_by_id(const std::string &);
 
     //
+    // Search one document using any attribute that has a string value
+    //
+    // @param collection
+    //   A database collection object
+    //
+    // @param attribute
+    //   Attribute name, as a string
+    //
+    // @param attribute_value
+    //   Attribute value, along with the attribute name to match
+    //   a document
+    //
+    const bool search_one_by_string(const std::string &attribute = "", const std::string &attribute_value = "");
+
+    //
     // Get a string attribute from a view
     //
-    const std::string string_attribute(const std::string &attribute_name) const;
+    const std::string get_string_attribute(const std::string &attribute_name) const;
 };
 
 #endif // USER

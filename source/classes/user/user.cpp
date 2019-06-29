@@ -50,7 +50,24 @@ const bool User::search_one_by_id(const std::string &id = "")
     return EXIT_SUCCESS;
 }
 
-const std::string User::string_attribute(const std::string &attribute_name) const
+const bool User::search_one_by_string(const std::string &attribute, const std::string &attribute_value)
 {
-    return Crud::string_attribute(attribute_name, this->view);
+    auto status = Crud::search_one_by_string(this->collection, attribute, attribute_value);
+
+    if (std::get<0>(status))
+    {
+        // Error
+        return EXIT_FAILURE;
+    }
+
+    this->value = std::get<1>(status);
+
+    this->view = value.view();
+
+    return EXIT_SUCCESS;
+}
+
+const std::string User::get_string_attribute(const std::string &attribute_name) const
+{
+    return Crud::get_string_attribute(attribute_name, this->view);
 }

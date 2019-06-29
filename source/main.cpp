@@ -18,7 +18,14 @@ int main(const int argc, const char *argv[], const char *envp[])
 	// Get an attribute from the document found in the
 	// search above
 	//
-	std::cout << "Attribute: " << user->string_attribute("first_name") << std::endl;
+	std::cout << "Get string attribute (search one by id): " << user->get_string_attribute("first_name") << std::endl << std::endl;
+
+	//
+	// Search for a document using any attribute that has a string value
+	//
+	user->search_one_by_string("email", "e-mail@email.com");
+
+	std::cout << "Get string attribute (search one by string): " << user->get_string_attribute("email") << std::endl;
 
 	return 0;
 }

@@ -87,12 +87,36 @@ protected:
     const std::tuple<bool, bsoncxx::document::value> search_one_by_id(mongocxx::collection &, const std::string &) const;
 
     //
+    // Search one document using any attribute that has a string value
+    //
+    // @param collection
+    //   A database collection object
+    //
+    // @param attribute
+    //   Attribute name, as a string
+    //
+    // @param attribute_value
+    //   Attribute value, along with the attribute name to match
+    //   a document
+    //
+    // The bsoncxx::document::view can't be derived from the bsoncxx::document::value and
+    // returned as a final object, because the bsoncxx::document::view is internally a const
+    //
+    // http://mongocxx.org/api/mongocxx-v3/classmongocxx_1_1collection.html
+    //
+    // http://mongocxx.org/api/mongocxx-3.4.0/classbsoncxx_1_1document_1_1value.html
+    //
+    // http://mongocxx.org/api/current/classbsoncxx_1_1document_1_1view.html
+    //
+    const std::tuple<bool, bsoncxx::document::value> search_one_by_string(mongocxx::collection &, const std::string &, const std::string &) const;
+
+    //
     // Get a string attribute from a view
     //
     // @param attribute_name
     //   Attribute name, as a string
     //
-    const std::string string_attribute(const std::string &, const bsoncxx::document::view &) const;
+    const std::string get_string_attribute(const std::string &, const bsoncxx::document::view &) const;
 };
 
 #endif // CRUD
