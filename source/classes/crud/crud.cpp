@@ -321,9 +321,64 @@ std::string Crud::get_document_oid(const bsoncxx::document::view &view, const st
 
     try
     {
-        bsoncxx::oid oid = view[attribute].get_oid().value;
+        if (view[attribute].type() == bsoncxx::type::k_oid)
+        {
+            bsoncxx::oid oid = view[attribute].get_oid().value;
 
-        return oid.to_string();
+            return oid.to_string();
+        }
+        else
+        {
+            std::cout << "The attribute in parameter is not an OID type"
+                      << std::endl;
+
+            return std::string();
+        }
+    }
+    catch (const bsoncxx::v_noabi::exception &error)
+    {
+        std::cerr << "Attribute not found in view ("
+                  << error.what()
+                  << "). File \033[34m"
+                  << __FILE__
+                  << "\033[m at function \033[31m"
+                  << __FUNCTION__
+                  << "\033[m"
+                  << std::endl;
+
+        return std::string();
+    }
+}
+
+const std::string Crud::get_document_iso_date(const bsoncxx::document::view &view, const std::string &attribute) const
+{
+    if (view.empty())
+    {
+        std::cout << "Empty view. No search was made"
+                  << std::endl;
+
+        return std::string();
+    }
+
+    try
+    {
+        if (view[attribute].type() == bsoncxx::type::k_date)
+        {
+            std::time_t date = std::chrono::system_clock::to_time_t(view[attribute].get_date());
+
+            std::string string_date = std::ctime(&date);
+
+            string_date.erase(std::remove(string_date.begin(), string_date.end(), '\n'), string_date.end());
+
+            return string_date;
+        }
+        else
+        {
+            std::cout << "The attribute in parameter is not an Date type"
+                      << std::endl;
+
+            return std::string();
+        }
     }
     catch (const bsoncxx::v_noabi::exception &error)
     {

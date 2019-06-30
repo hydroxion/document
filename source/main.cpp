@@ -61,7 +61,7 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// Search a document
 	//
-	document->search_one_by_id("5d18f84e2a554e4d4f64e073");
+	document->search_one_by_id("id");
 
 	//
 	// Get an attribute, that has a string value
@@ -72,7 +72,13 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// Get an document id
 	//
-	std::cout << "Document id: " << document->get_document_oid() << std::endl;
+	std::cout << "Document id: " << document->get_document_oid("_id") << std::endl;
+
+	//
+	//
+	// Get an document date attribute
+	//
+	std::cout << "Document created at: " << document->get_document_iso_date("created_at") << std::endl;
 
 	return 0;
 }

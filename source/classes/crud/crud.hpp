@@ -32,6 +32,9 @@
 // Bulk exception
 #include <mongocxx/exception/bulk_write_exception.hpp>
 
+// Algorithm
+#include <algorithm>
+
 class Crud
 {
 protected:
@@ -175,6 +178,25 @@ protected:
     // http://mongocxx.org/api/current/classbsoncxx_1_1document_1_1view.html
     //
     std::string get_document_oid(const bsoncxx::document::view &, const std::string &) const;
+
+    //
+    // Get any date attribute, from a view
+    //
+    // @param view
+    //   A BSON document view
+    //
+    // @param attribute
+    //   Attribute name
+    //
+    // http://mongocxx.org/api/mongocxx-3.4.0/classbsoncxx_1_1document_1_1value.html
+    //
+    // http://mongocxx.org/api/current/classbsoncxx_1_1document_1_1view.html
+    //
+    // https://stackoverflow.com/questions/17223096/outputting-date-and-time-in-c-using-stdchrono
+    //
+    // https://stackoverflow.com/questions/1488775/c-remove-new-line-from-multiline-string
+    //
+    const std::string get_document_iso_date(const bsoncxx::document::view &view, const std::string &attribute) const;
 };
 
 #endif // CRUD

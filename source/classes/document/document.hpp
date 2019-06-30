@@ -136,7 +136,15 @@ public:
     // @param attribute
     //   Attribute name
     //
-    std::string get_document_oid(const std::string attribute = "_id");
+    const std::string get_document_oid(const std::string attribute = "_id");
+
+    //
+    // Get any date attribute
+    //
+    // @param attribute
+    //   Attribute name
+    //
+    const std::string get_document_iso_date(const std::string attribute = "created_at");
 };
 
 #endif // DOCUMENT
