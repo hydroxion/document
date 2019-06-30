@@ -23,17 +23,12 @@ private:
     //
     // ID store an document identification
     //
-    // The id is only updated in the personalized constructor and in the login method
-    //
     std::string id = std::string();
 
     //
     // Value store a document value. The value need to be stored because the memory
     // between a view and a value is shared. If a view is derived from a value
     // and the reference to the value is removed, the view is not valid anymore
-    //
-    // The value is updated if the personalized constructor, login or any search method
-    // is called
     //
     // https://stackoverflow.com/questions/56740730/unset-document-element-in-mongo-cxx/56741600?noredirect=1#comment100043541_56741600
     //
@@ -42,23 +37,15 @@ private:
     //
     // View store an document visualization. The view is derived from a value.
     //
-    // The view is updated if the personalized constructor, login or any search
-    // method is called
-    //
     bsoncxx::document::view view;
 
     //
     // Collection store a database collection
     //
-    // The collection is only updated when the object is created
-    //
     mongocxx::collection collection = Connection::collection(user_database_name, user_collection_name);
 
     //
     // Logged store the login status
-    //
-    // The logged status is only updated at the login function and in the personalized
-    // constructor
     //
     bool logged = false;
 

@@ -48,5 +48,14 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// user->update_one_by_id("first_name", "First Name");
 
+	//
+	// Create a document
+	//
+	std::vector<std::string> category = {"category1", "category2"};
+
+	std::vector<std::string> keyword = {"keyword1", "keyword2"};
+
+	Document *document = new Document("id", "title", "type", "idiom", category, keyword);
+
 	return 0;
 }

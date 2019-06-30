@@ -15,3 +15,10 @@ extern std::string connection_port;
 extern std::string user_database_name;
 
 extern std::string user_collection_name;
+
+//
+// Document
+//
+extern std::string document_database_name;
+
+extern std::string document_collection_name;

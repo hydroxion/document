@@ -67,6 +67,8 @@ const std::tuple<bool, bsoncxx::document::value> Crud::search_one_by_id(mongocxx
 
         if (!result)
         {
+            bsoncxx::stdx::optional<bsoncxx::document::value> _result;
+
             std::cerr << "The id: \033[33m"
                       << id
                       << "\033[m, don't match any document in "
@@ -74,7 +76,7 @@ const std::tuple<bool, bsoncxx::document::value> Crud::search_one_by_id(mongocxx
                       << " or the attribute don't exist in the collection documents"
                       << std::endl;
 
-            return std::make_tuple(EXIT_FAILURE, (*result));
+            return std::make_tuple(EXIT_FAILURE, (*_result));
         }
         else
         {
@@ -88,7 +90,7 @@ const std::tuple<bool, bsoncxx::document::value> Crud::search_one_by_id(mongocxx
     }
     catch (const bsoncxx::v_noabi::exception &error)
     {
-        bsoncxx::stdx::optional<bsoncxx::document::value> result;
+        bsoncxx::stdx::optional<bsoncxx::document::value> _result;
 
         std::cerr << "An exception occurred: "
                   << error.what()
@@ -99,7 +101,7 @@ const std::tuple<bool, bsoncxx::document::value> Crud::search_one_by_id(mongocxx
                   << "\033[m"
                   << std::endl;
 
-        return std::make_tuple(EXIT_FAILURE, (*result));
+        return std::make_tuple(EXIT_FAILURE, (*_result));
     }
 }
 

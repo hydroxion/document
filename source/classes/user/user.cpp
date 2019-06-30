@@ -174,7 +174,7 @@ const int User::delete_one_by_id()
     }
 }
 
-const int update_one_by_id(const std::string &attribute, const std::string &attribute_value)
+const int User::update_one_by_id(const std::string &attribute, const std::string &attribute_value)
 {
     if (this->id.empty())
     {
