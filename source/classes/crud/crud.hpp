@@ -104,7 +104,7 @@ protected:
     const std::tuple<bool, bsoncxx::document::value> search_one_by_string(mongocxx::collection &, const std::string &, const std::string &) const;
 
     //
-    // Get any attribute, from a view
+    // Get any string attribute, from a view
     //
     // @param attribute
     //   Attribute name

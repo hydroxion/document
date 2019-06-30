@@ -6,9 +6,9 @@ Document::Document() : Connection(), Crud()
 
 Document::Document(const std::string &user_id, const std::string &title, const std::string &type, const std::string &idiom, std::vector<std::string> &category, std::vector<std::string> &keyword) : Connection(), Crud()
 {
-    mongocxx::collection _collection = Connection::collection(user_database_name, user_collection_name);
+    mongocxx::collection user_collection = Connection::collection(user_database_name, user_collection_name);
 
-    auto status_id = Crud::search_one_by_id(_collection, user_id);
+    auto status_id = Crud::search_one_by_id(user_collection, user_id);
 
     if (std::get<0>(status_id))
     {
@@ -60,4 +60,47 @@ Document::Document(const std::string &user_id, const std::string &title, const s
 
 Document::~Document()
 {
+}
+
+const bool Document::search_one_by_id(const std::string &id)
+{
+    auto status = Crud::search_one_by_id(this->collection, id);
+
+    if (std::get<0>(status))
+    {
+        // Error
+        return EXIT_FAILURE;
+    }
+    else
+    {
+        this->value = std::get<1>(status);
+
+        this->view = this->value.view();
+
+        return EXIT_SUCCESS;
+    }
+}
+
+const bool Document::search_one_by_string(const std::string &attribute, const std::string &attribute_value)
+{
+    auto status = Crud::search_one_by_string(this->collection, attribute, attribute_value);
+
+    if (std::get<0>(status))
+    {
+        // Error
+        return EXIT_FAILURE;
+    }
+    else
+    {
+        this->value = std::get<1>(status);
+
+        this->view = this->value.view();
+
+        return EXIT_SUCCESS;
+    }
+}
+
+const std::string Document::get_string_attribute(const std::string &attribute_name)
+{
+    return Crud::get_string_attribute(attribute_name, this->view);
 }

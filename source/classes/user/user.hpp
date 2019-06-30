@@ -35,7 +35,7 @@ private:
     bsoncxx::document::value value = bsoncxx::builder::stream::document{} << bsoncxx::builder::stream::finalize;
 
     //
-    // View store an document visualization. The view is derived from a value.
+    // View store an document visualization. The view is derived from a value
     //
     bsoncxx::document::view view;
 
@@ -103,7 +103,7 @@ public:
     const bool search_one_by_string(const std::string &, const std::string &);
 
     //
-    // Get any attribute, from a view
+    // Get any string attribute, from a view
     //
     // @param attribute
     //   Attribute name

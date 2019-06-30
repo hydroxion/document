@@ -58,7 +58,15 @@ int main(const int argc, const char *argv[], const char *envp[])
 	// Document *document = new Document("id", "title", "type", "idiom", category, keyword);
 	Document *document = new Document();
 
-	document->~Document();
+	//
+	// Search a document
+	//
+	document->search_one_by_id("5d18f84e2a554e4d4f64e073");
+
+	//
+	// Get an attribute, that has a string value
+	//
+	std::cout << "Get string attribute (search one by id): " << document->get_string_attribute("title");
 
 	return 0;
 }

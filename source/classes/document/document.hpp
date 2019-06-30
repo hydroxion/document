@@ -41,7 +41,7 @@ private:
     bsoncxx::document::value value = bsoncxx::builder::stream::document{} << bsoncxx::builder::stream::finalize;
 
     //
-    // View store an document visualization. The view is derived from a value.
+    // View store an document visualization. The view is derived from a value
     //
     bsoncxx::document::view view;
 
@@ -60,25 +60,24 @@ public:
     // Personalized document
     //
     // @param user_id
-    //   A OID, that indicates who the document belongs to
+    //   A OID, that indicates who the document bellongs to
     //
     // @param title
     //   Document title
     //
     // @param type
-    //   Document type, that indicates if the document is it a Ebook, Book,
-    //   etc
+    //   Document type, that indicates if the document is it an Ebook, Book,
+    //   Slide, etc
     //
     // @param idiom
-    //   Document idiom, that indicates which language the document is in
+    //   Document idiom, that indicates which is the document language
     //
     // @param category
-    //
     //   An array, that indicates which category (ies) the document bellongs
     //   to, e.g algorithm, network, deep learn, etc
     //
     // @param keyword
-    //    An array, that indicates which keywords the document has, i.e the
+    //    An array, that indicates which keyword (s) the document has, i.e the
     //    words that describe the main content of the document
     //
     // http://mongocxx.org/api/current/classbsoncxx_1_1builder_1_1stream_1_1document.html
@@ -103,6 +102,33 @@ public:
     // Destroys a document
     //
     ~Document();
+
+    //
+    // Search one document by id
+    //
+    // @param id
+    //   A OID
+    //
+    const bool search_one_by_id(const std::string &);
+
+    //
+    // Search one document by any attribute, that has a string value
+    //
+    // @param attribute
+    //   Attribute name
+    //
+    // @param attribute_value
+    //   Attribute value
+    //
+    const bool search_one_by_string(const std::string &, const std::string &);
+
+    //
+    // Get any string attribute, from a view
+    //
+    // @param attribute
+    //   Attribute name
+    //
+    const std::string get_string_attribute(const std::string &);
 };
 
 #endif // DOCUMENT
