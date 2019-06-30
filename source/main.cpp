@@ -61,7 +61,7 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// Search a document
 	//
-	document->search_one_by_id("id");
+	document->search_one_by_id("5d18f84e2a554e4d4f64e073");
 
 	//
 	// Get an attribute, that has a string value
@@ -72,7 +72,7 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// Get an document id
 	//
-	std::cout << "Document id: \033[32m" << document->get_document_oid() << "\033[m" << std::endl;
+	std::cout << "Document id: " << document->get_document_oid() << std::endl;
 
 	return 0;
 }

@@ -105,7 +105,7 @@ const std::string Document::get_string_attribute(const std::string &attribute_na
     return Crud::get_string_attribute(attribute_name, this->view);
 }
 
-std::string Document::get_document_oid(const std::string attribute = "_id")
+std::string Document::get_document_oid(const std::string attribute)
 {
     return Crud::get_document_oid(this->view, attribute);
 }

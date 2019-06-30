@@ -311,6 +311,14 @@ const int Crud::update_one_by_id(mongocxx::collection &collection, const std::st
 
 std::string Crud::get_document_oid(const bsoncxx::document::view &view, const std::string &attribute) const
 {
+    if (view.empty())
+    {
+        std::cout << "Empty view. No search was made"
+                  << std::endl;
+
+        return std::string();
+    }
+
     try
     {
         bsoncxx::oid oid = view[attribute].get_oid().value;
@@ -319,9 +327,13 @@ std::string Crud::get_document_oid(const bsoncxx::document::view &view, const st
     }
     catch (const bsoncxx::v_noabi::exception &error)
     {
-        bsoncxx::stdx::optional<bsoncxx::document::value> _result;
-
-        std::cout << "Empty view. No search was made"
+        std::cerr << "Attribute not found in view ("
+                  << error.what()
+                  << "). File \033[34m"
+                  << __FILE__
+                  << "\033[m at function \033[31m"
+                  << __FUNCTION__
+                  << "\033[m"
                   << std::endl;
 
         return std::string();

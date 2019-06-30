@@ -117,9 +117,7 @@ const bool User::login(const std::string &email, const std::string &password)
 
         this->view = this->value.view();
 
-        bsoncxx::oid oid = this->view["_id"].get_oid().value;
-
-        this->id = oid.to_string();
+        this->id = Crud::get_document_oid(this->view, std::string("_id"));
 
         this->logged = true;
 
