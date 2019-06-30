@@ -7,7 +7,7 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// User *user = new User("first name", "second name", "e-mail@email.com", "password");
 	//
-	User *user = new User();
+	// User *user = new User();
 
 	//
 	// Search an user
@@ -34,7 +34,7 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// Login
 	//
-	user->login("e-mail@email.com", "password");
+	// user->login("e-mail@email.com", "password");
 	//
 	// std::cout << "Login status: " << user->login_status() << std::endl;
 
@@ -51,11 +51,14 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// Create a document
 	//
-	std::vector<std::string> category = {"category1", "category2"};
+	// std::vector<std::string> category = {"category1", "category2"};
+	//
+	// std::vector<std::string> keyword = {"keyword1", "keyword2"};
+	//
+	// Document *document = new Document("id", "title", "type", "idiom", category, keyword);
+	Document *document = new Document();
 
-	std::vector<std::string> keyword = {"keyword1", "keyword2"};
-
-	Document *document = new Document("id", "title", "type", "idiom", category, keyword);
+	document->~Document();
 
 	return 0;
 }
