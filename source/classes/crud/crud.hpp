@@ -160,6 +160,21 @@ protected:
     // http://mongocxx.org/api/current/classmongocxx_1_1result_1_1update.html
     //
     const int update_one_by_id(mongocxx::collection &, const std::string &, const std::string &, const std::string &) const;
+
+    //
+    // Get any oid attribute, from a view
+    //
+    // @param view
+    //   A BSON document view
+    //
+    // @param attribute
+    //   Attribute name
+    //
+    // http://mongocxx.org/api/mongocxx-3.4.0/classbsoncxx_1_1document_1_1value.html
+    //
+    // http://mongocxx.org/api/current/classbsoncxx_1_1document_1_1view.html
+    //
+    std::string get_document_oid(const bsoncxx::document::view &, const std::string &) const;
 };
 
 #endif // CRUD

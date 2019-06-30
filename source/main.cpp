@@ -61,12 +61,18 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// Search a document
 	//
-	document->search_one_by_id("5d18f84e2a554e4d4f64e073");
+	document->search_one_by_id("id");
 
 	//
 	// Get an attribute, that has a string value
 	//
-	std::cout << "Get string attribute (search one by id): " << document->get_string_attribute("title");
+	// std::cout << "Get string attribute (search one by id): " << document->get_string_attribute("title") << std::endl;
+
+	//
+	//
+	// Get an document id
+	//
+	std::cout << "Document id: \033[32m" << document->get_document_oid() << "\033[m" << std::endl;
 
 	return 0;
 }

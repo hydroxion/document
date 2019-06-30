@@ -129,6 +129,14 @@ public:
     //   Attribute name
     //
     const std::string get_string_attribute(const std::string &);
+
+    //
+    // Get any oid attribute
+    //
+    // @param attribute
+    //   Attribute name
+    //
+    std::string get_document_oid(const std::string attribute = "_id");
 };
 
 #endif // DOCUMENT

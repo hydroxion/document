@@ -308,3 +308,22 @@ const int Crud::update_one_by_id(mongocxx::collection &collection, const std::st
         return EXIT_FAILURE;
     }
 }
+
+std::string Crud::get_document_oid(const bsoncxx::document::view &view, const std::string &attribute) const
+{
+    try
+    {
+        bsoncxx::oid oid = view[attribute].get_oid().value;
+
+        return oid.to_string();
+    }
+    catch (const bsoncxx::v_noabi::exception &error)
+    {
+        bsoncxx::stdx::optional<bsoncxx::document::value> _result;
+
+        std::cout << "Empty view. No search was made"
+                  << std::endl;
+
+        return std::string();
+    }
+}
