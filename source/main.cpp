@@ -61,7 +61,12 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// Search a document
 	//
-	document->search_one_by_id("id");
+	// document->search_one_by_id("id");
+
+	//
+	// Search one document by any attribute, that has a string value
+	//
+	document->search_one_by_string("idiom", "idiom");
 
 	//
 	// Get an attribute, that has a string value
