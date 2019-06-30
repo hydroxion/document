@@ -77,6 +77,8 @@ const bool Document::search_one_by_id(const std::string &id)
 
         this->view = this->value.view();
 
+        this->id = Document::get_document_oid("_id");
+
         return EXIT_SUCCESS;
     }
 }
@@ -113,4 +115,30 @@ const std::string Document::get_document_oid(const std::string attribute)
 const std::string Document::get_document_iso_date(const std::string attribute)
 {
     return Crud::get_document_iso_date(this->view, attribute);
+}
+
+const int Document::delete_one_by_id()
+{
+    if (this->id.empty())
+    {
+        std::cout << "\033[33mId\033[m not found in the object"
+                  << std::endl;
+
+        return EXIT_FAILURE;
+    }
+    else
+    {
+        unsigned exit_status = Crud::delete_one_by_id(this->collection, this->id);
+
+        if (!exit_status)
+        {
+            this->id = std::string();
+
+            this->value = bsoncxx::builder::stream::document{} << bsoncxx::builder::stream::finalize;
+
+            this->view = bsoncxx::document::view{};
+        }
+
+        return exit_status;
+    }
 }

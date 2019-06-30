@@ -72,13 +72,18 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// Get an document id
 	//
-	std::cout << "Document id: " << document->get_document_oid("_id") << std::endl;
+	// std::cout << "Document id: " << document->get_document_oid("_id") << std::endl;
 
 	//
 	//
 	// Get an document date attribute
 	//
-	std::cout << "Document created at: " << document->get_document_iso_date("created_at") << std::endl;
+	// std::cout << "Document created at: " << document->get_document_iso_date("created_at") << std::endl;
+
+	//
+	// Delete one document by id
+	//
+	// document->delete_one_by_id();
 
 	return 0;
 }

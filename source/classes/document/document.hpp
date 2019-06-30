@@ -145,6 +145,14 @@ public:
     //   Attribute name
     //
     const std::string get_document_iso_date(const std::string attribute = "created_at");
+
+    //
+    // Delete one document by id
+    //
+    // @param id
+    //   A OID
+    //
+    const int delete_one_by_id();
 };
 
 #endif // DOCUMENT

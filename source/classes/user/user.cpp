@@ -161,9 +161,7 @@ const int User::delete_one_by_id()
 
             this->value = bsoncxx::builder::stream::document{} << bsoncxx::builder::stream::finalize;
 
-            bsoncxx::document::view view;
-
-            this->view = view;
+            this->view = bsoncxx::document::view{};
 
             this->logged = false;
         }
