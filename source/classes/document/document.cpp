@@ -98,6 +98,8 @@ const bool Document::search_one_by_string(const std::string &attribute, const st
 
         this->view = this->value.view();
 
+        this->id = Document::get_document_oid("_id");
+        
         return EXIT_SUCCESS;
     }
 }

@@ -60,6 +60,10 @@ public:
         this->save(path);
     }
 
+    ~DocumentFile()
+    {
+    }
+
     std::ifstream read_file(const std::string &path)
     {
         std::ifstream file(path, std::ifstream::in | std::ifstream::binary);
@@ -166,8 +170,82 @@ public:
         }
     }
 
-    ~DocumentFile()
+    const bool search_one_by_id(const std::string &id)
     {
+        auto status = Crud::search_one_by_id(this->collection, id);
+
+        if (std::get<0>(status))
+        {
+            // Error
+            return EXIT_FAILURE;
+        }
+        else
+        {
+            this->value = std::get<1>(status);
+
+            this->view = this->value.view();
+
+            this->id = DocumentFile::get_document_oid("_id");
+
+            return EXIT_SUCCESS;
+        }
+    }
+
+    const bool search_one_by_string(const std::string &attribute, const std::string &attribute_value)
+    {
+        auto status = Crud::search_one_by_string(this->collection, attribute, attribute_value);
+
+        if (std::get<0>(status))
+        {
+            // Error
+            return EXIT_FAILURE;
+        }
+        else
+        {
+            this->value = std::get<1>(status);
+
+            this->view = this->value.view();
+
+            this->id = DocumentFile::get_document_oid("_id");
+
+            return EXIT_SUCCESS;
+        }
+    }
+
+    const std::string get_string_attribute(const std::string &attribute_name)
+    {
+        return Crud::get_string_attribute(attribute_name, this->view);
+    }
+
+    const std::string get_document_oid(const std::string attribute)
+    {
+        return Crud::get_document_oid(this->view, attribute);
+    }
+
+    const int delete_one_by_id()
+    {
+        if (this->id.empty())
+        {
+            std::cout << "\033[33mId\033[m not found in the object"
+                      << std::endl;
+
+            return EXIT_FAILURE;
+        }
+        else
+        {
+            unsigned exit_status = Crud::delete_one_by_id(this->collection, this->id);
+
+            if (!exit_status)
+            {
+                this->id = std::string();
+
+                this->value = bsoncxx::builder::stream::document{} << bsoncxx::builder::stream::finalize;
+
+                this->view = bsoncxx::document::view{};
+            }
+
+            return exit_status;
+        }
     }
 };
 

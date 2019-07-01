@@ -98,7 +98,53 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	DocumentFile *file = new DocumentFile();
 
-	file->~DocumentFile();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//
+	// Search a document
+	//
+	// file->search_one_by_id("id");
+
+	//
+	// Search one document by any attribute, that has a string value
+	//
+	file->search_one_by_string("name", "presentation.pdf");
+
+	//
+	// Get an attribute, that has a string value
+	//
+	// std::cout << "Get string attribute (search one by id): " << file->get_string_attribute("name") << std::endl;
+
+	//
+	//
+	// Get an document id
+	//
+	// std::cout << "Document id: " << file->get_document_oid("_id") << std::endl;
+
+	//
+	// Delete one document by id
+	//
+	file->delete_one_by_id();
 
 	return 0;
 }
