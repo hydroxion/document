@@ -27,4 +27,13 @@ std::string document_database_name{"proto-buffer"};
 
 std::string document_collection_name{"document"};
 
+//
+// Document file
+//
+std::string document_file_database_name{"proto-buffer"};
+
+std::string document_file_collection_name{"file"};
+
+std::string document_file_valid_format{"pdf"};
+
 #endif // SETTINGS

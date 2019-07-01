@@ -14,6 +14,9 @@
 // Settings
 #include "../../settings/settings.hpp"
 
+// String
+#include <string>
+
 // Vector
 #include <vector>
 

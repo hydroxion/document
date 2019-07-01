@@ -11,6 +11,9 @@
 // Standard I/O
 #include <iostream>
 
+// String
+#include <string>
+
 // Tuple
 #include <tuple>
 

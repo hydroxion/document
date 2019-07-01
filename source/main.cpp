@@ -56,7 +56,8 @@ int main(const int argc, const char *argv[], const char *envp[])
 	// std::vector<std::string> keyword = {"keyword1", "keyword2"};
 	//
 	// Document *document = new Document("id", "title", "type", "idiom", category, keyword);
-	Document *document = new Document();
+	//
+	// Document *document = new Document();
 
 	//
 	// Search a document
@@ -66,7 +67,7 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// Search one document by any attribute, that has a string value
 	//
-	document->search_one_by_string("idiom", "idiom");
+	// document->search_one_by_string("idiom", "idiom");
 
 	//
 	// Get an attribute, that has a string value
@@ -89,6 +90,15 @@ int main(const int argc, const char *argv[], const char *envp[])
 	// Delete one document by id
 	//
 	// document->delete_one_by_id();
+
+	//
+	// Create a file
+	//
+	// DocumentFile *file = new DocumentFile("path");
+	//
+	DocumentFile *file = new DocumentFile();
+
+	file->~DocumentFile();
 
 	return 0;
 }

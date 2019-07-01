@@ -22,3 +22,12 @@ extern std::string user_collection_name;
 extern std::string document_database_name;
 
 extern std::string document_collection_name;
+
+//
+// Document file
+//
+extern std::string document_file_database_name;
+
+extern std::string document_file_collection_name;
+
+extern std::string document_file_valid_format;
