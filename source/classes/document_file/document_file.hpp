@@ -17,7 +17,7 @@
 // Settings
 #include "../../settings/settings.hpp"
 
-// file stream
+// File stream
 #include <fstream>
 
 class DocumentFile : protected Connection, protected Crud
@@ -49,230 +49,77 @@ private:
 
 public:
     //
-    // Default file
+    // Default document file
     //
-    DocumentFile() : Connection(), Crud()
-    {
-    }
+    DocumentFile();
 
-    DocumentFile(const std::string &path)
-    {
-        this->upload(path);
-    }
+    //
+    // Personalized document file
+    //
+    // @param path
+    //   Path to a binary file
+    //
+    DocumentFile(const std::string &);
 
-    ~DocumentFile()
-    {
-    }
+    //
+    // Destroys a document file
+    //
+    ~DocumentFile();
 
-    std::ifstream read_file(const std::string &path)
-    {
-        std::ifstream file(path, std::ifstream::in | std::ifstream::binary);
+    std::ifstream read_file(const std::string &);
 
-        return file;
-    }
+    uint32_t file_size(std::ifstream &, std::filebuf *filebuf);
 
-    uint32_t file_size(std::ifstream &file, std::filebuf *filebuf)
-    {
-        uint32_t size = filebuf->pubseekoff(0, file.end, file.in);
+    std::string file_name(std::string, char seperator = '/');
 
-        filebuf->pubseekpos(0, file.in);
+    std::string extension_name(std::string);
 
-        return size;
-    }
+    int upload(const std::string &);
 
-    std::string file_name(std::string path, char seperator = '/')
-    {
-        if (path.find_last_of(seperator) != std::string::npos)
-        {
-            return path.substr(path.rfind(seperator) + 1);
-        }
+    //
+    // Search one document by id
+    //
+    // @param id
+    //   A OID
+    //
+    const bool search_one_by_id(const std::string &);
 
-        return std::string();
-    }
+    //
+    // Search one document by any attribute, that has a string value
+    //
+    // @param attribute
+    //   Attribute name
+    //
+    // @param attribute_value
+    //   Attribute value
+    //
+    const bool search_one_by_string(const std::string &, const std::string &);
 
-    std::string extension_name(std::string path)
-    {
-        return path.substr(path.find_last_of(".") + 1);
-    }
+    //
+    // Get any string attribute, from a view
+    //
+    // @param attribute
+    //   Attribute name
+    //
+    const std::string get_string_attribute(const std::string &);
 
-    int upload(const std::string &path)
-    {
-        std::string extension = this->extension_name(path);
+    //
+    // Get any oid attribute
+    //
+    // @param attribute
+    //   Attribute name
+    //
+    const std::string get_document_oid(const std::string);
 
-        if (!(document_file_valid_format.find(extension) != std::string::npos))
-        {
-            std::string extension_cache = extension.size() ? extension : "empty string";
+    //
+    // Delete one document by id
+    //
+    // @param id
+    //   A OID
+    //
+    const int delete_one_by_id();
 
-            std::cout << "Invalid file format: "
-                      << extension_cache
-                      << std::endl;
-
-            return EXIT_FAILURE;
-        }
-
-        std::ifstream file = this->read_file(path);
-
-        if (!file.is_open())
-        {
-            std::cout << "Was not possible to open the file (input stream), try another path";
-
-            file.close();
-
-            return EXIT_FAILURE;
-        }
-
-        std::filebuf *filebuf = file.rdbuf();
-
-        uint32_t size = this->file_size(file, filebuf);
-
-        std::cout << "File size (upload): " << size << std::endl;
-
-        char *buffer = new char[size];
-
-        if (!buffer)
-        {
-            std::cout << "Buffer not allocated" << std::endl;
-
-            file.close();
-
-            return EXIT_FAILURE;
-        }
-
-        filebuf->sgetn(buffer, size);
-
-        bsoncxx::document::value value = bsoncxx::builder::stream::document{}
-                                         << "name" << bsoncxx::types::b_utf8{this->file_name(path)}
-                                         << "size" << bsoncxx::types::b_int64{size}
-                                         << "extension" << bsoncxx::types::b_utf8{extension}
-                                         << "archive" << bsoncxx::types::b_binary{bsoncxx::binary_sub_type::k_binary, size, (uint8_t *)buffer}
-                                         << bsoncxx::builder::stream::finalize;
-
-        delete[] buffer;
-
-        file.close();
-
-        auto status = Crud::insert_one(this->collection, value.view());
-
-        if (std::get<0>(status))
-        {
-            // Error
-            std::cerr << "Internal error when creating an object"
-                      << ". File \033[34m"
-                      << __FILE__
-                      << "\033[m at function \033[31m"
-                      << __FUNCTION__
-                      << "\033[m"
-                      << std::endl;
-
-            return EXIT_FAILURE;
-        }
-        else
-        {
-            this->id = std::get<1>(status);
-
-            return EXIT_SUCCESS;
-        }
-    }
-
-    const bool search_one_by_id(const std::string &id)
-    {
-        auto status = Crud::search_one_by_id(this->collection, id);
-
-        if (std::get<0>(status))
-        {
-            // Error
-            return EXIT_FAILURE;
-        }
-        else
-        {
-            this->value = std::get<1>(status);
-
-            this->view = this->value.view();
-
-            this->id = DocumentFile::get_document_oid("_id");
-
-            return EXIT_SUCCESS;
-        }
-    }
-
-    const bool search_one_by_string(const std::string &attribute, const std::string &attribute_value)
-    {
-        auto status = Crud::search_one_by_string(this->collection, attribute, attribute_value);
-
-        if (std::get<0>(status))
-        {
-            // Error
-            return EXIT_FAILURE;
-        }
-        else
-        {
-            this->value = std::get<1>(status);
-
-            this->view = this->value.view();
-
-            this->id = DocumentFile::get_document_oid("_id");
-
-            return EXIT_SUCCESS;
-        }
-    }
-
-    const std::string get_string_attribute(const std::string &attribute_name)
-    {
-        return Crud::get_string_attribute(attribute_name, this->view);
-    }
-
-    const std::string get_document_oid(const std::string attribute)
-    {
-        return Crud::get_document_oid(this->view, attribute);
-    }
-
-    const int delete_one_by_id()
-    {
-        if (this->id.empty())
-        {
-            std::cout << "\033[33mId\033[m not found in the object"
-                      << std::endl;
-
-            return EXIT_FAILURE;
-        }
-        else
-        {
-            unsigned exit_status = Crud::delete_one_by_id(this->collection, this->id);
-
-            if (!exit_status)
-            {
-                this->id = std::string();
-
-                this->value = bsoncxx::builder::stream::document{} << bsoncxx::builder::stream::finalize;
-
-                this->view = bsoncxx::document::view{};
-            }
-
-            return exit_status;
-        }
-    }
-
-    int download(const std::string &path)
-    {
-        std::ofstream file(path + this->get_string_attribute("name"));
-
-        if (!file.is_open())
-        {
-            std::cout << "Was not possible to open the file (output stream), try another path";
-
-            file.close();
-
-            return EXIT_FAILURE;
-        }
-
-        std::cout << "File size (download): " << view["archive"].get_binary().size << std::endl;
-
-        file.write((char *)view["archive"].get_binary().bytes, view["archive"].get_binary().size);
-
-        file.close();
-
-        return EXIT_SUCCESS;
-    }
+    int download(const std::string &);
 };
 
 #endif // DOCUMENT_FILE

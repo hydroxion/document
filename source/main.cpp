@@ -94,7 +94,7 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// Upload a file to database
 	//
-	// DocumentFile *file = new DocumentFile("path");
+	// DocumentFile *file = new DocumentFile("/home/pc/Downloads/Prediction-Machines.pdf");
 	//
 	// DocumentFile *file = new DocumentFile();
 
@@ -129,5 +129,5 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// file->download("./");
 
-	return 0;
+	return EXIT_SUCCESS;
 }
