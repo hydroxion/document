@@ -92,33 +92,11 @@ int main(const int argc, const char *argv[], const char *envp[])
 	// document->delete_one_by_id();
 
 	//
-	// Create a file
+	// Upload a file to database
 	//
 	// DocumentFile *file = new DocumentFile("path");
 	//
-	DocumentFile *file = new DocumentFile();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	// DocumentFile *file = new DocumentFile();
 
 	//
 	// Search a document
@@ -128,7 +106,7 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// Search one document by any attribute, that has a string value
 	//
-	file->search_one_by_string("name", "presentation.pdf");
+	// file->search_one_by_string("name", "presentation.pdf");
 
 	//
 	// Get an attribute, that has a string value
@@ -144,7 +122,12 @@ int main(const int argc, const char *argv[], const char *envp[])
 	//
 	// Delete one document by id
 	//
-	file->delete_one_by_id();
+	// file->delete_one_by_id();
+
+	//
+	// Download a file from database
+	//
+	// file->download("./");
 
 	return 0;
 }

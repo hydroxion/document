@@ -57,7 +57,7 @@ public:
 
     DocumentFile(const std::string &path)
     {
-        this->save(path);
+        this->upload(path);
     }
 
     ~DocumentFile()
@@ -95,7 +95,7 @@ public:
         return path.substr(path.find_last_of(".") + 1);
     }
 
-    int save(const std::string &path)
+    int upload(const std::string &path)
     {
         std::string extension = this->extension_name(path);
 
@@ -114,7 +114,9 @@ public:
 
         if (!file.is_open())
         {
-            std::cout << "File not opened";
+            std::cout << "Was not possible to open the file (input stream), try another path";
+
+            file.close();
 
             return EXIT_FAILURE;
         }
@@ -123,13 +125,15 @@ public:
 
         uint32_t size = this->file_size(file, filebuf);
 
-        std::cout << "File size: " << size << std::endl;
+        std::cout << "File size (upload): " << size << std::endl;
 
         char *buffer = new char[size];
 
         if (!buffer)
         {
             std::cout << "Buffer not allocated" << std::endl;
+
+            file.close();
 
             return EXIT_FAILURE;
         }
@@ -140,7 +144,7 @@ public:
                                          << "name" << bsoncxx::types::b_utf8{this->file_name(path)}
                                          << "size" << bsoncxx::types::b_int64{size}
                                          << "extension" << bsoncxx::types::b_utf8{extension}
-                                         << "pdf" << bsoncxx::types::b_binary{bsoncxx::binary_sub_type::k_binary, size, (uint8_t *)buffer}
+                                         << "archive" << bsoncxx::types::b_binary{bsoncxx::binary_sub_type::k_binary, size, (uint8_t *)buffer}
                                          << bsoncxx::builder::stream::finalize;
 
         delete[] buffer;
@@ -246,6 +250,28 @@ public:
 
             return exit_status;
         }
+    }
+
+    int download(const std::string &path)
+    {
+        std::ofstream file(path + this->get_string_attribute("name"));
+
+        if (!file.is_open())
+        {
+            std::cout << "Was not possible to open the file (output stream), try another path";
+
+            file.close();
+
+            return EXIT_FAILURE;
+        }
+
+        std::cout << "File size (download): " << view["archive"].get_binary().size << std::endl;
+
+        file.write((char *)view["archive"].get_binary().bytes, view["archive"].get_binary().size);
+
+        file.close();
+
+        return EXIT_SUCCESS;
     }
 };
 
